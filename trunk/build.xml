@@ -6,6 +6,7 @@
 
     <target name="clean" description="Clean up built files">
         <delete dir="build"/>
+        <delete dir="docs/api"/>
         <delete file="squiggle-${version}.jar"/>
         <delete file="squiggle-${version}.zip"/>
         <delete file="squiggle-${version}.tgz"/>
