@@ -27,12 +27,12 @@
         <copy todir="build/dist">
             <fileset dir=".">
                 <include name="docs/**"/>
-                <include name="src/**"/>
                 <include name="examples/**"/>
+                <include name="src/**"/>
                 <include name="build.xml"/>
-                <include name="squiggle-${version}.jar"/>
-                <include name="LICENSE.txt"/>
                 <include name="CHANGES.txt"/>
+                <include name="LICENSE.txt"/>
+                <include name="squiggle-${version}.jar"/>
             </fileset>
         </copy>
         <zip zipfile="squiggle-${version}.zip" basedir="build/dist"/>
