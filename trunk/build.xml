@@ -2,7 +2,7 @@
 
     <property name="version" value="1.2.3"/>
 
-    <target name="all" depends="clean, jar, compile-examples, dist" description="Build everything"/>
+    <target name="all" depends="clean, compile-examples, dist" description="Build everything"/>
 
     <target name="clean" description="Clean up built files">
         <delete dir="build"/>
@@ -21,19 +21,17 @@
         <javac srcdir="src" destdir="build/examples" classpath="build/squiggle"/>
     </target>
 
-    <target name="dist" depends="jar" description="Build distribution bundles">
+    <target name="dist" depends="jar, javadoc" description="Build distribution bundles">
         <mkdir dir="build/dist"/>
         <copy todir="build/dist">
             <fileset dir=".">
+                <include name="docs/**"/>
                 <include name="src/**"/>
                 <include name="examples/**"/>
                 <include name="build.xml"/>
                 <include name="squiggle-${version}.jar"/>
                 <include name="LICENSE.txt"/>
                 <include name="CHANGES.txt"/>
-            </fileset>
-            <fileset dir="docs/html">
-                <exclude name="index.html"/>
             </fileset>
         </copy>
         <zip zipfile="squiggle-${version}.zip" basedir="build/dist"/>
@@ -44,6 +42,10 @@
         <jar jarfile="squiggle-${version}.jar">
             <fileset dir="build/squiggle"/>
         </jar>
+    </target>
+
+    <target name="javadoc" description="Generate Javadoc documentation">
+        <javadoc sourcepath="src" destdir="docs/api"/>
     </target>
 
 </project>
