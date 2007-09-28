@@ -7,6 +7,11 @@ public class DateRange {
 
   private Date end;
 
+  public DateRange(Date start, Date end) {
+    this.start = start;
+    this.end = end;
+  }
+
   public Date getStart() {
     return start;
   }
