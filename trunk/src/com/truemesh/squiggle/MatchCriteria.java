@@ -6,68 +6,73 @@ import com.truemesh.squiggle.output.Output;
  * @author <a href="joe@truemesh.com">Joe Walnes</a>
  */
 public class MatchCriteria extends Criteria {
+  public static final String EQUALS = "=";
 
-    public static final String EQUALS = "=";
-    public static final String GREATER = ">";
-    public static final String LESS = "<";
-    public static final String GREATEREQUAL = ">=";
-    public static final String LESSEQUAL = "<=";
-    public static final String LIKE = "LIKE";
+  public static final String GREATER = ">";
 
-    private Column column;
-    private String value;
-    private String matchType;
+  public static final String GREATEREQUAL = ">=";
 
-    public MatchCriteria(Column column, String matchType, String value) {
-        this.column = column;
-        this.value = quote(value);
-        this.matchType = matchType;
-    }
+  public static final String LESS = "<";
 
-    public MatchCriteria(Column column, String matchType, float value) {
-        this.column = column;
-        this.value = "" + value;
-        this.matchType = matchType;
-    }
+  public static final String LESSEQUAL = "<=";
 
-    public MatchCriteria(Column column, String matchType, int value) {
-        this.column = column;
-        this.value = "" + value;
-        this.matchType = matchType;
-    }
+  public static final String LIKE = "LIKE";
 
-    public MatchCriteria(Column column, String matchType, boolean value) {
-        this.column = column;
-        this.value = "" + value;
-        this.matchType = matchType;
-    }
+  private Column column;
 
-    public MatchCriteria(Table table, String columnname, String matchType, boolean value) {
-        this(table.getColumn(columnname), matchType, value);
-    }
+  private String matchType;
 
-    public MatchCriteria(Table table, String columnname, String matchType, int value) {
-        this(table.getColumn(columnname), matchType, value);
-    }
+  private String value;
 
-    public MatchCriteria(Table table, String columnname, String matchType, float value) {
-        this(table.getColumn(columnname), matchType, value);
-    }
+  public MatchCriteria(Column column, String matchType, boolean value) {
+    this.column = column;
+    this.value = "" + value;
+    this.matchType = matchType;
+  }
 
-    public MatchCriteria(Table table, String columnname, String matchType, String value) {
-        this(table.getColumn(columnname), matchType, value);
-    }
+  public MatchCriteria(Column column, String matchType, float value) {
+    this.column = column;
+    this.value = "" + value;
+    this.matchType = matchType;
+  }
 
-    public Column getColumn() {
-        return column;
-    }
+  public MatchCriteria(Column column, String matchType, int value) {
+    this.column = column;
+    this.value = "" + value;
+    this.matchType = matchType;
+  }
 
-    public void write(Output out) {
-        out.print(column)
-            .print(' ')
-            .print(matchType)
-            .print(' ')
-            .print(value);
-    }
+  public MatchCriteria(Column column, String matchType, String value) {
+    this.column = column;
+    this.value = quote(value);
+    this.matchType = matchType;
+  }
 
+  public MatchCriteria(Table table, String columnname, String matchType,
+    boolean value) {
+    this(table.getColumn(columnname), matchType, value);
+  }
+
+  public MatchCriteria(Table table, String columnname, String matchType,
+    float value) {
+    this(table.getColumn(columnname), matchType, value);
+  }
+
+  public MatchCriteria(Table table, String columnname, String matchType,
+    int value) {
+    this(table.getColumn(columnname), matchType, value);
+  }
+
+  public MatchCriteria(Table table, String columnname, String matchType,
+    String value) {
+    this(table.getColumn(columnname), matchType, value);
+  }
+
+  public Column getColumn() {
+    return column;
+  }
+
+  public void write(Output out) {
+    out.print(column).print(' ').print(matchType).print(' ').print(value);
+  }
 }
