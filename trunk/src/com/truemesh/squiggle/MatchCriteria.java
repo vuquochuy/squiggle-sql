@@ -22,6 +22,8 @@ public class MatchCriteria extends Criteria {
 
   public static final String LIKE = "LIKE";
 
+  public static final String NOTEQUAL = "<>";
+
   private Column column;
 
   private String matchType;
@@ -30,7 +32,7 @@ public class MatchCriteria extends Criteria {
 
   public MatchCriteria(Column column, String matchType, boolean value) {
     this.column = column;
-    this.value = "" + value;
+    this.value = String.valueOf(value);
     this.matchType = matchType;
   }
 
@@ -49,19 +51,18 @@ public class MatchCriteria extends Criteria {
    *            the date literal to use in the comparison.
    */
   public MatchCriteria(Column column, String operator, Date operand) {
-    this(column, operator, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S")
-      .format(operand));
+    this(column, operator, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(operand));
   }
 
   public MatchCriteria(Column column, String matchType, float value) {
     this.column = column;
-    this.value = "" + value;
+    this.value = String.valueOf(value);
     this.matchType = matchType;
   }
 
   public MatchCriteria(Column column, String matchType, int value) {
     this.column = column;
-    this.value = "" + value;
+    this.value = String.valueOf(value);
     this.matchType = matchType;
   }
 
@@ -71,8 +72,7 @@ public class MatchCriteria extends Criteria {
     this.matchType = matchType;
   }
 
-  public MatchCriteria(Table table, String columnname, String matchType,
-    boolean value) {
+  public MatchCriteria(Table table, String columnname, String matchType, boolean value) {
     this(table.getColumn(columnname), matchType, value);
   }
 
