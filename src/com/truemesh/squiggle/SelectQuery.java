@@ -1,29 +1,33 @@
 package com.truemesh.squiggle;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
 import com.truemesh.squiggle.output.Output;
 import com.truemesh.squiggle.output.Outputable;
 import com.truemesh.squiggle.output.ToStringer;
 
-import java.util.*;
-
 /**
  * @author <a href="joe@truemesh.com">Joe Walnes</a>
+ * @author Nat Pryce
  */
-public class SelectQuery implements Outputable {
-
+public class SelectQuery implements Outputable, CanReferToTables {
     public static final int indentSize = 4;
 
-    private Table baseTable;
-    private List selection;
-    private boolean isDistinct = false;
-    private List criteria;
-    private List order;
+    private final Table baseTable;
+    private final List selection = new ArrayList();
+    private final List criteria = new ArrayList();
+    private final List order = new ArrayList();
 
+    private boolean isDistinct = false;
+    
     public SelectQuery(Table baseTable) {
         this.baseTable = baseTable;
-        selection = new ArrayList();
-        criteria = new ArrayList();
-        order = new ArrayList();
     }
 
     public Table getBaseTable() {
@@ -110,7 +114,6 @@ public class SelectQuery implements Outputable {
     }
 
     public void write(Output out) {
-
         out.print("SELECT");
         if (isDistinct) {
             out.print(" DISTINCT");
@@ -172,48 +175,35 @@ public class SelectQuery implements Outputable {
      *
      * @return List of {@link com.truemesh.squiggle.Table}s
      */
-    private List findAllUsedTables() {
+    private Set findAllUsedTables() {
+    	Set tables = new LinkedHashSet();
+    	addReferencedTablesTo(tables);
+        return tables;
+    }
 
-        List allTables = new ArrayList();
-        allTables.add(baseTable);
-
-        { // Get all tables used by columns
-            Iterator i = selection.iterator();
-            while (i.hasNext()) {
-                Table curr = ((Projection) i.next()).getTable();
-                if (!allTables.contains(curr)) {
-                    allTables.add(curr);
-                }
-            }
-        }
-
+	public void addReferencedTablesTo(Set tables) {
+		tables.add(baseTable);
+    	
+    	{ // Get all tables used by selection
+    		Iterator i = selection.iterator(); 
+    		while (i.hasNext()) {
+    			((Selectable)i.next()).addReferencedTablesTo(tables);
+    		}
+    		
+    	}
+    	
         { // Get all tables used by criteria
             Iterator i = criteria.iterator();
             while (i.hasNext()) {
-                try {
-                    JoinCriteria curr = (JoinCriteria) i.next();
-                    if (!allTables.contains(curr.getSource().getTable())) {
-                        allTables.add(curr.getSource().getTable());
-                    }
-                    if (!allTables.contains(curr.getDest().getTable())) {
-                        allTables.add(curr.getDest().getTable());
-                    }
-                } catch (ClassCastException e) {
-                } // not a JoinCriteria
+            	((Criteria)i.next()).addReferencedTablesTo(tables);
             }
         }
-
+        	
         { // Get all tables used by columns
             Iterator i = order.iterator();
             while (i.hasNext()) {
-                Order curr = (Order) i.next();
-                Table c = curr.getColumn().getTable();
-                if (!allTables.contains(c)) {
-                    allTables.add(c);
-                }
+                ((Order)i.next()).addReferencedTablesTo(tables);
             }
         }
-
-        return allTables;
-    }
+	}
 }

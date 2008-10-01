@@ -1,10 +1,12 @@
 package com.truemesh.squiggle;
 
+
 import com.truemesh.squiggle.output.Output;
 import com.truemesh.squiggle.output.ToStringer;
 
 /**
  * @author <a href="joe@truemesh.com">Joe Walnes</a>
+ * @author Nat Pryce
  */
 public class Column extends Projection implements Matchable {
 	private final String name;

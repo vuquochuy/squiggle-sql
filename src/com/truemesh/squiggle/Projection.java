@@ -1,5 +1,7 @@
 package com.truemesh.squiggle;
 
+import java.util.Set;
+
 /**
  * What can be selected from a table.
  * 
@@ -14,5 +16,9 @@ public abstract class Projection implements Selectable {
 	
 	public Table getTable() {
 		return table;
+	}
+
+	public void addReferencedTablesTo(Set tables) {
+		tables.add(table);
 	}
 }
