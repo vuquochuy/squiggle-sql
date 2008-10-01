@@ -15,6 +15,7 @@ public class SelectQuery implements Outputable {
 
     private Table baseTable;
     private List columns;
+    private boolean isDistinct = false;
     private List criteria;
     private List order;
 
@@ -47,6 +48,14 @@ public class SelectQuery implements Outputable {
 
     public List listColumns() {
         return Collections.unmodifiableList(columns);
+    }
+
+    public boolean isDistinct() {
+        return isDistinct;
+    }
+
+    public void setDistinct(boolean distinct) {
+        isDistinct = distinct;
     }
 
     public void addCriteria(Criteria criteria) {
@@ -94,7 +103,10 @@ public class SelectQuery implements Outputable {
     public void write(Output out) {
 
         out.println("SELECT");
-
+        if (isDistinct) {
+            out.println(" DISTINCT");
+        }
+        
         // Add columns to select
         out.indent();
         appendList(out, columns, ",");
@@ -123,7 +135,6 @@ public class SelectQuery implements Outputable {
             appendList(out, order, ",");
             out.unindent();
         }
-
     }
 
     /**
