@@ -7,7 +7,7 @@ import static org.junit.Assert.assertThat;
 
 public class Test005Join {
     @Test
-    public void join() {
+    public void joinOnForeignKeyRelationship() {
         Table people = new Table("people");
         Table departments = new Table("departments");
 
@@ -27,5 +27,26 @@ public class Test005Join {
                 "    departments " +
                 "WHERE " +
                 "    people.departmentID = departments.id"));
+    }
+
+    @Test
+    public void joinOnComparison() {
+        Table invoices = new Table("invoices");
+        Table taxPaymentDate = new Table("tax_payment_date");
+
+        SelectQuery select = new SelectQuery(invoices); // base table
+
+        select.addColumn(invoices, "number");
+
+        select.addJoin(invoices, "date", MatchCriteria.GREATER, taxPaymentDate, "date");
+
+        assertThat(select, generatesSql(
+                "SELECT " +
+                "    invoices.number " +
+                "FROM " +
+                "    invoices , " +
+                "    tax_payment_date " +
+                "WHERE " +
+                "    invoices.date > tax_payment_date.date"));
     }
 }
