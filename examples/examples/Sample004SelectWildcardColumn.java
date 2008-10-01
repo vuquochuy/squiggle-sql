@@ -9,7 +9,7 @@ public class Sample004SelectWildcardColumn {
 
         SelectQuery select = new SelectQuery(people);
 
-        select.addColumn(new WildCardColumn(people));
+        select.addToSelection(new WildCardColumn(people));
 
         System.out.println(select);
 

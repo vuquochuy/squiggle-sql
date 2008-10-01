@@ -20,7 +20,7 @@ public class Test009OrAnd {
 
         SelectQuery select = new SelectQuery(user);
 
-        select.addColumn(new WildCardColumn(user));
+        select.addToSelection(new WildCardColumn(user));
 
         Criteria name = new MatchCriteria(user, "name", MatchCriteria.LIKE, "a%");
         Criteria id = new MatchCriteria(user, "id", MatchCriteria.EQUALS, 12345);

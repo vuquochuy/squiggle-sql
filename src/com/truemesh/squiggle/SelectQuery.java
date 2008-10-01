@@ -14,14 +14,14 @@ public class SelectQuery implements Outputable {
     public static final int indentSize = 4;
 
     private Table baseTable;
-    private List columns;
+    private List selection;
     private boolean isDistinct = false;
     private List criteria;
     private List order;
 
     public SelectQuery(Table baseTable) {
         this.baseTable = baseTable;
-        columns = new ArrayList();
+        selection = new ArrayList();
         criteria = new ArrayList();
         order = new ArrayList();
     }
@@ -29,27 +29,29 @@ public class SelectQuery implements Outputable {
     public Table getBaseTable() {
         return baseTable;
     }
-
-    public void addColumn(Column column) {
-        columns.add(column);
+    
+    public void addToSelection(Selectable selectable) {
+    	selection.add(selectable);
     }
-
+    
     /**
      * Syntax sugar for addColumn(Column).
      */
     public void addColumn(Table table, String columname) {
-        addColumn(table.getColumn(columname));
+        addToSelection(table.getColumn(columname));
     }
 
-
-    public void removeColumn(Column column) {
-        columns.remove(column);
+    public void removeFromSelection(Selectable selectable) {
+        selection.remove(selectable);
     }
 
-    public List listColumns() {
-        return Collections.unmodifiableList(columns);
+    /**
+     * @return a list of {@link Selectable} objects.
+     */
+    public List listSelection() {
+        return Collections.unmodifiableList(selection);
     }
-
+    
     public boolean isDistinct() {
         return isDistinct;
     }
@@ -109,14 +111,15 @@ public class SelectQuery implements Outputable {
 
     public void write(Output out) {
 
-        out.println("SELECT");
+        out.print("SELECT");
         if (isDistinct) {
-            out.println(" DISTINCT");
+            out.print(" DISTINCT");
         }
+        out.println();
 
         // Add columns to select
         out.indent();
-        appendList(out, columns, ",");
+        appendList(out, selection, ",");
         out.unindent();
 
         // Add tables to select from
@@ -175,9 +178,9 @@ public class SelectQuery implements Outputable {
         allTables.add(baseTable);
 
         { // Get all tables used by columns
-            Iterator i = columns.iterator();
+            Iterator i = selection.iterator();
             while (i.hasNext()) {
-                Table curr = ((Column) i.next()).getTable();
+                Table curr = ((Projection) i.next()).getTable();
                 if (!allTables.contains(curr)) {
                     allTables.add(curr);
                 }

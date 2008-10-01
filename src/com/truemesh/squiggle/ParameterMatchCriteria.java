@@ -1,6 +1,5 @@
 package com.truemesh.squiggle;
 
-import com.truemesh.squiggle.Column;
 import com.truemesh.squiggle.Criteria;
 import com.truemesh.squiggle.output.Output;
 
@@ -12,7 +11,7 @@ import com.truemesh.squiggle.output.Output;
  */
 public class ParameterMatchCriteria extends Criteria {
   // Column to include in the condition.
-  private Column column;
+  private Projection column;
 
   // Comparison operator, one of EQUALS, GREATER, GREATEREQUAL, LESS, LESSEQUAL,
   // or LIKE.
@@ -31,7 +30,7 @@ public class ParameterMatchCriteria extends Criteria {
    *            be one of EQUALS, GREATER, GREATEREQUAL, LESS, LESSEQUAL, or
    *            LIKE.
    */
-  public ParameterMatchCriteria(Column column, String comparisonOperator) {
+  public ParameterMatchCriteria(Projection column, String comparisonOperator) {
     this.column = column;
     this.comparisonOperator = comparisonOperator;
   }
@@ -43,7 +42,7 @@ public class ParameterMatchCriteria extends Criteria {
    * @return the Column object that represents the table column to use in the
    *         SQL query condition.
    */
-  public Column getColumn() {
+  public Projection getColumn() {
     return column;
   }
 
