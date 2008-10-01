@@ -1,5 +1,7 @@
 package com.truemesh.squiggle;
 
+import java.util.Set;
+
 import com.truemesh.squiggle.Criteria;
 import com.truemesh.squiggle.output.Output;
 
@@ -11,12 +13,15 @@ import com.truemesh.squiggle.output.Output;
  * @author <a href="mailto:derek@derekmahar.ca">Derek Mahar</a>
  */
 public class NoCriteria extends Criteria {
-  /**
-   * Writes an empty criteria (single space) to the given output stream.
-   * 
-   * @see com.truemesh.squiggle.Criteria#write(com.truemesh.squiggle.output.Output)
-   */
-  public void write(Output out) {
-    out.print(' ');
-  }
+	/**
+	 * Writes an empty criteria (single space) to the given output stream.
+	 * 
+	 * @see com.truemesh.squiggle.Criteria#write(com.truemesh.squiggle.output.Output)
+	 */
+	public void write(Output out) {
+		out.print(' ');
+	}
+
+	public void addReferencedTablesTo(Set tables) {
+	}
 }

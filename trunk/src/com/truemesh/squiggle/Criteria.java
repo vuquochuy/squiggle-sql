@@ -7,8 +7,7 @@ import com.truemesh.squiggle.output.Output;
 /**
  * @author <a href="joe@truemesh.com">Joe Walnes</a>
  */
-public abstract class Criteria implements Outputable {
-
+public abstract class Criteria implements Outputable, CanReferToTables {
     public abstract void write(Output out);
 
     public String toString() {

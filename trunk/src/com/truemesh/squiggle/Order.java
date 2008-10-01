@@ -1,7 +1,9 @@
 package com.truemesh.squiggle;
 
-import com.truemesh.squiggle.output.Outputable;
+import java.util.Set;
+
 import com.truemesh.squiggle.output.Output;
+import com.truemesh.squiggle.output.Outputable;
 import com.truemesh.squiggle.output.ToStringer;
 
 /**
@@ -9,7 +11,7 @@ import com.truemesh.squiggle.output.ToStringer;
  * 
  * @author <a href="joe@truemesh.com">Joe Walnes</a>
  */
-public class Order implements Outputable {
+public class Order implements Outputable, CanReferToTables {
 
     public static final boolean ASCENDING = true;
     public static final boolean DESCENDING = false;
@@ -26,7 +28,7 @@ public class Order implements Outputable {
         this.ascending = ascending;
     }
 
-    public Column getColumn() {
+    public Projection getColumn() {
         return column;
     }
 
@@ -41,4 +43,7 @@ public class Order implements Outputable {
         }
     }
 
+	public void addReferencedTablesTo(Set tables) {
+		column.addReferencedTablesTo(tables);
+	}
 }

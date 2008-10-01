@@ -7,6 +7,6 @@ import com.truemesh.squiggle.output.Outputable;
  * 
  * @author Nat Pryce
  */
-public interface Matchable extends Outputable {
+public interface Matchable extends Outputable, CanReferToTables {
 
 }

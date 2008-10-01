@@ -2,7 +2,12 @@ package com.truemesh.squiggle;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
 
+import com.truemesh.squiggle.literal.BooleanLiteral;
+import com.truemesh.squiggle.literal.FloatLiteral;
+import com.truemesh.squiggle.literal.IntegerLiteral;
+import com.truemesh.squiggle.literal.StringLiteral;
 import com.truemesh.squiggle.output.Output;
 
 /**
@@ -12,29 +17,25 @@ import com.truemesh.squiggle.output.Output;
  */
 public class MatchCriteria extends Criteria {
     public static final String EQUALS = "=";
-
     public static final String GREATER = ">";
-
     public static final String GREATEREQUAL = ">=";
-
     public static final String LESS = "<";
-
     public static final String LESSEQUAL = "<=";
-
     public static final String LIKE = "LIKE";
-
     public static final String NOTEQUAL = "<>";
 
-    private Column column;
+    private final Matchable left;
+    private final String operator;
+    private final Matchable right;
 
-    private String matchType;
-
-    private String value;
+    public MatchCriteria(Matchable left, String operator, Matchable right) {
+        this.left = left;
+        this.operator = operator;
+        this.right = right;
+    }
 
     public MatchCriteria(Column column, String matchType, boolean value) {
-        this.column = column;
-        this.value = String.valueOf(value);
-        this.matchType = matchType;
+    	this(column, matchType, new BooleanLiteral(value));
     }
 
     /**
@@ -51,21 +52,15 @@ public class MatchCriteria extends Criteria {
     }
 
     public MatchCriteria(Column column, String matchType, float value) {
-        this.column = column;
-        this.value = String.valueOf(value);
-        this.matchType = matchType;
+    	this(column, matchType, new FloatLiteral(value));
     }
 
     public MatchCriteria(Column column, String matchType, int value) {
-        this.column = column;
-        this.value = String.valueOf(value);
-        this.matchType = matchType;
+    	this(column, matchType, new IntegerLiteral(value));
     }
 
     public MatchCriteria(Column column, String matchType, String value) {
-        this.column = column;
-        this.value = quote(value);
-        this.matchType = matchType;
+    	this(column, matchType, new StringLiteral(value));
     }
 
     public MatchCriteria(Table table, String columnname, String matchType, boolean value) {
@@ -103,11 +98,26 @@ public class MatchCriteria extends Criteria {
         this(table.getColumn(columnname), matchType, value);
     }
 
-    public Column getColumn() {
-        return column;
+    public Matchable getLeft() {
+        return left;
+    }
+    
+    public String getComparisonOperator() {
+    	return operator;
+    }
+    
+    public Matchable getRight() {
+    	return right;
+    }
+    
+    public void write(Output out) {
+    	left.write(out);
+        out.print(' ').print(operator).print(' ');
+        right.write(out);
     }
 
-    public void write(Output out) {
-        out.print(column).print(' ').print(matchType).print(' ').print(value);
-    }
+	public void addReferencedTablesTo(Set tables) {
+		left.addReferencedTablesTo(tables);
+		right.addReferencedTablesTo(tables);
+	}
 }

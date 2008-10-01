@@ -1,20 +1,20 @@
 package com.truemesh.squiggle;
 
-import com.truemesh.squiggle.output.Output;
-
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Set;
+
+import com.truemesh.squiggle.output.Output;
 
 /**
  * @author <a href="joe@truemesh.com">Joe Walnes</a>
  */
 public class InCriteria extends Criteria {
-
-    private Projection column;
+    private Matchable column;
     private String value;
     private SelectQuery subSelect;
 
-    public InCriteria(Projection column, Collection values) {
+    public InCriteria(Matchable column, Collection values) {
         this.column = column;
         StringBuffer v = new StringBuffer();
         Iterator i = values.iterator();
@@ -32,7 +32,7 @@ public class InCriteria extends Criteria {
         this.value = v.toString();
     }
 
-    public InCriteria(Projection column, String[] values) {
+    public InCriteria(Matchable column, String[] values) {
         this.column = column;
         StringBuffer v = new StringBuffer();
         for (int i = 0; i < values.length; i++) {
@@ -42,7 +42,7 @@ public class InCriteria extends Criteria {
         this.value = v.toString();
     }
 
-    public InCriteria(Projection column, int[] values) {
+    public InCriteria(Matchable column, int[] values) {
         this.column = column;
         StringBuffer v = new StringBuffer();
         for (int i = 0; i < values.length; i++) {
@@ -52,7 +52,7 @@ public class InCriteria extends Criteria {
         this.value = v.toString();
     }
 
-    public InCriteria(Projection column, float[] values) {
+    public InCriteria(Matchable column, float[] values) {
         this.column = column;
         StringBuffer v = new StringBuffer();
         for (int i = 0; i < values.length; i++) {
@@ -62,12 +62,12 @@ public class InCriteria extends Criteria {
         this.value = v.toString();
     }
 
-    public InCriteria(Projection column, SelectQuery subSelect) {
+    public InCriteria(Matchable column, SelectQuery subSelect) {
         this.column = column;
         this.subSelect = subSelect;
     }
 
-    public InCriteria(Projection column, String subSelect) {
+    public InCriteria(Matchable column, String subSelect) {
         this.column = column;
         this.value = subSelect;
     }
@@ -96,7 +96,7 @@ public class InCriteria extends Criteria {
         this(table.getColumn(columnname), values);
     }
 
-    public Projection getColumn() {
+    public Matchable getMatched() {
         return column;
     }
 
@@ -116,4 +116,7 @@ public class InCriteria extends Criteria {
         out.print(")");
     }
 
+	public void addReferencedTablesTo(Set tables) {
+		column.addReferencedTablesTo(tables);
+	}
 }

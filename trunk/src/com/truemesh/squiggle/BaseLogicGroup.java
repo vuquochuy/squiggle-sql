@@ -1,5 +1,7 @@
 package com.truemesh.squiggle;
 
+import java.util.Set;
+
 import com.truemesh.squiggle.output.Output;
 
 /**
@@ -28,4 +30,8 @@ public abstract class BaseLogicGroup extends Criteria {
             .print(" )");
     }
 
+	public void addReferencedTablesTo(Set tables) {
+		left.addReferencedTablesTo(tables);
+		right.addReferencedTablesTo(tables);
+	}
 }
