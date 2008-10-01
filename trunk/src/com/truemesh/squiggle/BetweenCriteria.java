@@ -18,7 +18,7 @@ import com.truemesh.squiggle.range.StringRange;
  * @author <a href="mailto:derek@derekmahar.ca">Derek Mahar</a>
  */
 public class BetweenCriteria extends Criteria {
-  private Column column;
+  private Projection column;
 
   private StringRange range;
 
@@ -36,7 +36,7 @@ public class BetweenCriteria extends Criteria {
    *            the BigDecimal bounds for the SQL BETWEEN operator within which
    *            the operator tests whether the column lies.
    */
-  public BetweenCriteria(Column column, BigDecimalRange range) {
+  public BetweenCriteria(Projection column, BigDecimalRange range) {
     this.column = column;
     this.range =
       new StringRange(range.getStart().toString(), range.getEnd().toString());
@@ -56,7 +56,7 @@ public class BetweenCriteria extends Criteria {
    *            the Date bounds for the SQL BETWEEN operator within which the
    *            operator tests whether the column lies.
    */
-  public BetweenCriteria(Column column, DateRange range) {
+  public BetweenCriteria(Projection column, DateRange range) {
     this.column = column;
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
     this.range =
@@ -78,7 +78,7 @@ public class BetweenCriteria extends Criteria {
    *            the Double bounds for the SQL BETWEEN operator within which the
    *            operator tests whether the column lies.
    */
-  public BetweenCriteria(Column column, DoubleRange range) {
+  public BetweenCriteria(Projection column, DoubleRange range) {
     this.column = column;
     this.range =
       new StringRange(range.getStart().toString(), range.getEnd().toString());
@@ -98,7 +98,7 @@ public class BetweenCriteria extends Criteria {
    *            the Float bounds for the SQL BETWEEN operator within which the
    *            operator tests whether the column lies.
    */
-  public BetweenCriteria(Column column, FloatRange range) {
+  public BetweenCriteria(Projection column, FloatRange range) {
     this.column = column;
     this.range =
       new StringRange(range.getStart().toString(), range.getEnd().toString());
@@ -118,7 +118,7 @@ public class BetweenCriteria extends Criteria {
    *            the Integer bounds for the SQL BETWEEN operator within which the
    *            operator tests whether the column lies.
    */
-  public BetweenCriteria(Column column, IntegerRange range) {
+  public BetweenCriteria(Projection column, IntegerRange range) {
     this.column = column;
     this.range =
       new StringRange(range.getStart().toString(), range.getEnd().toString());

@@ -10,11 +10,11 @@ import java.util.Iterator;
  */
 public class InCriteria extends Criteria {
 
-    private Column column;
+    private Projection column;
     private String value;
     private SelectQuery subSelect;
 
-    public InCriteria(Column column, Collection values) {
+    public InCriteria(Projection column, Collection values) {
         this.column = column;
         StringBuffer v = new StringBuffer();
         Iterator i = values.iterator();
@@ -32,7 +32,7 @@ public class InCriteria extends Criteria {
         this.value = v.toString();
     }
 
-    public InCriteria(Column column, String[] values) {
+    public InCriteria(Projection column, String[] values) {
         this.column = column;
         StringBuffer v = new StringBuffer();
         for (int i = 0; i < values.length; i++) {
@@ -42,7 +42,7 @@ public class InCriteria extends Criteria {
         this.value = v.toString();
     }
 
-    public InCriteria(Column column, int[] values) {
+    public InCriteria(Projection column, int[] values) {
         this.column = column;
         StringBuffer v = new StringBuffer();
         for (int i = 0; i < values.length; i++) {
@@ -52,7 +52,7 @@ public class InCriteria extends Criteria {
         this.value = v.toString();
     }
 
-    public InCriteria(Column column, float[] values) {
+    public InCriteria(Projection column, float[] values) {
         this.column = column;
         StringBuffer v = new StringBuffer();
         for (int i = 0; i < values.length; i++) {
@@ -62,12 +62,12 @@ public class InCriteria extends Criteria {
         this.value = v.toString();
     }
 
-    public InCriteria(Column column, SelectQuery subSelect) {
+    public InCriteria(Projection column, SelectQuery subSelect) {
         this.column = column;
         this.subSelect = subSelect;
     }
 
-    public InCriteria(Column column, String subSelect) {
+    public InCriteria(Projection column, String subSelect) {
         this.column = column;
         this.value = subSelect;
     }
@@ -96,7 +96,7 @@ public class InCriteria extends Criteria {
         this(table.getColumn(columnname), values);
     }
 
-    public Column getColumn() {
+    public Projection getColumn() {
         return column;
     }
 

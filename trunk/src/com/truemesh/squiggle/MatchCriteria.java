@@ -8,6 +8,7 @@ import com.truemesh.squiggle.output.Output;
 /**
  * @author <a href="joe@truemesh.com">Joe Walnes</a>
  * @author <a href="derek@derekmahar.ca">Derek Mahar</a>
+ * @author Nat Pryce
  */
 public class MatchCriteria extends Criteria {
     public static final String EQUALS = "=";
