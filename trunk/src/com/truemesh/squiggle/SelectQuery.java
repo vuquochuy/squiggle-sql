@@ -77,6 +77,13 @@ public class SelectQuery implements Outputable {
         addCriteria(new JoinCriteria(srcTable.getColumn(srcColumnname), destTable.getColumn(destColumnname)));
     }
 
+    /**
+     * Syntax sugar for addCriteria(JoinCriteria)
+     */
+    public void addJoin(Table srcTable, String srcColumnName, String operator, Table destTable, String destColumnName) {
+        addCriteria(new JoinCriteria(srcTable.getColumn(srcColumnName), operator, destTable.getColumn(destColumnName)));
+    }
+    
     public void addOrder(Order order) {
         this.order.add(order);
     }
@@ -106,7 +113,7 @@ public class SelectQuery implements Outputable {
         if (isDistinct) {
             out.println(" DISTINCT");
         }
-        
+
         // Add columns to select
         out.indent();
         appendList(out, columns, ",");
@@ -159,7 +166,7 @@ public class SelectQuery implements Outputable {
 
     /**
      * Find all the tables used in the query (from columns, criteria and order).
-     * 
+     *
      * @return List of {@link com.truemesh.squiggle.Table}s
      */
     private List findAllUsedTables() {
@@ -206,5 +213,4 @@ public class SelectQuery implements Outputable {
 
         return allTables;
     }
-
 }
