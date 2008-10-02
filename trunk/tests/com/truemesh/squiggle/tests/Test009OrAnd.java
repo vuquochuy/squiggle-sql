@@ -4,15 +4,6 @@ import com.truemesh.squiggle.*;
 import org.junit.Test;
 import static org.junit.Assert.assertThat;
 
-// Result:
-//
-// SELECT
-//     user.*
-// FROM
-//     user
-// WHERE
-//     ( user.name LIKE 'a%' OR ( user.id = 12345 AND user.feet = 'smelly' ) )
-
 public class Test009OrAnd {
     @Test
     public void orAnd() {
