@@ -31,7 +31,7 @@ public class Test002WhereCriteria {
                 "WHERE " +
                 "    people.height > 1.8 AND " +
                 "    people.department IN ( " +
-                "        'I.T.','Cooking' " +
+                "        'I.T.', 'Cooking' " +
                 "    ) AND" +
                 "    people.age BETWEEN 18 AND 30"));
 

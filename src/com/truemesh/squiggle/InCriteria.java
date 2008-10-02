@@ -1,86 +1,64 @@
 package com.truemesh.squiggle;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Set;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.truemesh.squiggle.output.Output;
+import com.truemesh.squiggle.literal.StringLiteral;
+import com.truemesh.squiggle.literal.IntegerLiteral;
+import com.truemesh.squiggle.literal.FloatLiteral;
 
 /**
  * @author <a href="joe@truemesh.com">Joe Walnes</a>
  */
 public class InCriteria extends Criteria {
-    private Matchable column;
-    private String value;
+    private Matchable matched;
+    private Collection<Literal> literals;
     private SelectQuery subSelect;
 
-    public InCriteria(Matchable column, Collection values) {
-        this.column = column;
-        StringBuffer v = new StringBuffer();
-        Iterator i = values.iterator();
-        boolean hasNext = i.hasNext();
-        while (hasNext) {
-            Object curr = i.next();
-            hasNext = i.hasNext();
-            if (curr instanceof Number) {
-                v.append(curr);
-            } else {
-                v.append(quote(curr.toString()));
-            }
-            if (hasNext) v.append(',');
-        }
-        this.value = v.toString();
+    public InCriteria(Matchable column, Collection<Literal> literals) {
+        this.matched = column;
+        this.literals = literals;
     }
 
-    public InCriteria(Matchable column, String[] values) {
-        this.column = column;
-        StringBuffer v = new StringBuffer();
-        for (int i = 0; i < values.length; i++) {
-            v.append(quote(values[i]));
-            if (i < values.length - 1) v.append(',');
-        }
-        this.value = v.toString();
+    public InCriteria(Matchable column, String... values) {
+        this.matched = column;
+        this.literals = new ArrayList<Literal>();
+        for (String value : values) literals.add(new StringLiteral(value));
     }
 
-    public InCriteria(Matchable column, int[] values) {
-        this.column = column;
-        StringBuffer v = new StringBuffer();
-        for (int i = 0; i < values.length; i++) {
-            v.append(values[i]);
-            if (i < values.length - 1) v.append(',');
-        }
-        this.value = v.toString();
+    public InCriteria(Matchable column, long... values) {
+        this.matched = column;
+        this.literals = new ArrayList<Literal>();
+        for (long value : values) literals.add(new IntegerLiteral(value));
     }
 
-    public InCriteria(Matchable column, float[] values) {
-        this.column = column;
-        StringBuffer v = new StringBuffer();
-        for (int i = 0; i < values.length; i++) {
-            v.append(values[i]);
-            if (i < values.length - 1) v.append(',');
-        }
-        this.value = v.toString();
+    public InCriteria(Matchable column, double... values) {
+        this.matched = column;
+        this.literals = new ArrayList<Literal>();
+        for (double value : values) literals.add(new FloatLiteral(value));
     }
 
     public InCriteria(Matchable column, SelectQuery subSelect) {
-        this.column = column;
+        this.matched = column;
         this.subSelect = subSelect;
     }
 
-    public InCriteria(Matchable column, String subSelect) {
-        this.column = column;
-        this.value = subSelect;
+    public InCriteria(Table table, String columnname, Collection<Literal> literals) {
+        this(table.getColumn(columnname), literals);
     }
 
-    public InCriteria(Table table, String columnname, Collection values) {
+    public InCriteria(Table table, String columnname, String... values) {
         this(table.getColumn(columnname), values);
     }
 
-    public InCriteria(Table table, String columnname, float[] values) {
+    public InCriteria(Table table, String columnname, double... values) {
         this(table.getColumn(columnname), values);
     }
 
-    public InCriteria(Table table, String columnname, int[] values) {
+    public InCriteria(Table table, String columnname, long... values) {
         this(table.getColumn(columnname), values);
     }
 
@@ -88,35 +66,33 @@ public class InCriteria extends Criteria {
         this(table.getColumn(columnname), subSelect);
     }
 
-    public InCriteria(Table table, String columnname, String subSelect) {
-        this(table.getColumn(columnname), subSelect);
-    }
-
-    public InCriteria(Table table, String columnname, String[] values) {
-        this(table.getColumn(columnname), values);
-    }
-
     public Matchable getMatched() {
-        return column;
+        return matched;
     }
 
     public void write(Output out) {
-        out.print(column);
+        out.print(matched);
         out.println(" IN (");
-
         out.indent();
+
         if (subSelect != null) {
             subSelect.write(out);
         } else {
-            out.print(value);
+            for (Iterator<Literal> it = literals.iterator(); it.hasNext();) {
+                Literal literal = it.next();
+                literal.write(out);
+                if (it.hasNext()) {
+                    out.print(", ");
+                }
+            }
         }
-        out.unindent();
 
         out.println();
+        out.unindent();
         out.print(")");
     }
 
-	public void addReferencedTablesTo(Set tables) {
-		column.addReferencedTablesTo(tables);
-	}
+    public void addReferencedTablesTo(Set tables) {
+        matched.addReferencedTablesTo(tables);
+    }
 }
