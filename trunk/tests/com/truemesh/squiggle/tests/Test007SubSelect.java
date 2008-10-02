@@ -3,9 +3,11 @@ package com.truemesh.squiggle.tests;
 import com.truemesh.squiggle.*;
 import static com.truemesh.squiggle.tests.SqlMatcher.generatesSql;
 import static org.junit.Assert.assertThat;
+import org.junit.Test;
 
 public class Test007SubSelect {
-    public static void main(String[] args) {
+    @Test
+    public void testSubSelect() {
         Table people = new Table("people");
         Table taxcodes = new Table("taxcodes");
 

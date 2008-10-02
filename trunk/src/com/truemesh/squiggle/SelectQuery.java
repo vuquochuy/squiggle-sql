@@ -80,14 +80,14 @@ public class SelectQuery implements Outputable, CanReferToTables {
      * Syntax sugar for addCriteria(JoinCriteria)
      */
     public void addJoin(Table srcTable, String srcColumnname, Table destTable, String destColumnname) {
-        addCriteria(new JoinCriteria(srcTable.getColumn(srcColumnname), destTable.getColumn(destColumnname)));
+        addCriteria(new MatchCriteria(srcTable.getColumn(srcColumnname), MatchCriteria.EQUALS, destTable.getColumn(destColumnname)));
     }
 
     /**
      * Syntax sugar for addCriteria(JoinCriteria)
      */
     public void addJoin(Table srcTable, String srcColumnName, String operator, Table destTable, String destColumnName) {
-        addCriteria(new JoinCriteria(srcTable.getColumn(srcColumnName), operator, destTable.getColumn(destColumnName)));
+        addCriteria(new MatchCriteria(srcTable.getColumn(srcColumnName), operator, destTable.getColumn(destColumnName)));
     }
     
     public void addOrder(Order order) {

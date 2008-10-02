@@ -3,11 +3,12 @@ package com.truemesh.squiggle.tests;
 import com.truemesh.squiggle.*;
 import static com.truemesh.squiggle.tests.SqlMatcher.generatesSql;
 import static org.junit.Assert.assertThat;
+import org.junit.Test;
 
 
 public class Test003NastyStrings {
+    @Test
     public void testNastyStrings() {
-
         Table people = new Table("people");
 
         SelectQuery select = new SelectQuery(people);
