@@ -51,11 +51,11 @@ public class MatchCriteria extends Criteria {
         this(column, operator, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(operand));
     }
 
-    public MatchCriteria(Column column, String matchType, float value) {
+    public MatchCriteria(Column column, String matchType, double value) {
     	this(column, matchType, new FloatLiteral(value));
     }
 
-    public MatchCriteria(Column column, String matchType, int value) {
+    public MatchCriteria(Column column, String matchType, long value) {
     	this(column, matchType, new IntegerLiteral(value));
     }
 
@@ -78,23 +78,19 @@ public class MatchCriteria extends Criteria {
      * @param operator   the comparison operator to use in the date comparison.
      * @param operand    the date literal to use in the comparison.
      */
-    public MatchCriteria(Table table, String columnName, String operator,
-                         Date operand) {
+    public MatchCriteria(Table table, String columnName, String operator, Date operand) {
         this(table.getColumn(columnName), operator, operand);
     }
 
-    public MatchCriteria(Table table, String columnname, String matchType,
-                         float value) {
+    public MatchCriteria(Table table, String columnname, String matchType, double value) {
         this(table.getColumn(columnname), matchType, value);
     }
 
-    public MatchCriteria(Table table, String columnname, String matchType,
-                         int value) {
+    public MatchCriteria(Table table, String columnname, String matchType, long value) {
         this(table.getColumn(columnname), matchType, value);
     }
 
-    public MatchCriteria(Table table, String columnname, String matchType,
-                         String value) {
+    public MatchCriteria(Table table, String columnname, String matchType,  String value) {
         this(table.getColumn(columnname), matchType, value);
     }
 

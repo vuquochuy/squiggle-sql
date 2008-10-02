@@ -13,7 +13,7 @@ public class Test004SelectWildcardColumn {
 
         SelectQuery select = new SelectQuery(people);
 
-        select.addToSelection(new WildCardColumn(people));
+        select.addToSelection(people.getWildcard());
 
         assertThat(select, generatesSql(
                 "SELECT " +
