@@ -6,9 +6,9 @@ import com.truemesh.squiggle.output.ToStringer;
 
 /**
  * @author <a href="joe@truemesh.com">Joe Walnes</a>
+ * @author Nat Pryce
  */
 public class Table implements Outputable {
-
     private String name;
     private String alias;
 
@@ -47,6 +47,10 @@ public class Table implements Outputable {
      */
     public Column getColumn(String columnName) {
         return new Column(this, columnName);
+    }
+
+    public WildCardColumn getWildcard() {
+        return new WildCardColumn(this);
     }
 
     public boolean equals(Object o) {
