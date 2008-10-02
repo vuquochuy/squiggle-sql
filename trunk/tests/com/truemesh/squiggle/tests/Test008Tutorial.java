@@ -56,7 +56,7 @@ public class Test008Tutorial {
                 "    orders_table.status = 'processed' AND " +
                 "    orders_table.items < 5 AND " +
                 "    orders_table.delivery IN ( " +
-                "        'post','fedex','goat' " +
+                "        'post', 'fedex', 'goat' " +
                 "    ) AND " +
                 "    orders_table.warehouse_id = warehouses_table.id AND " +
                 "    warehouses_table.size = 'big' AND " +
