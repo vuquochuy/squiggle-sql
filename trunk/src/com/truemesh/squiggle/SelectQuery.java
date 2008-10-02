@@ -20,12 +20,12 @@ public class SelectQuery implements Outputable, CanReferToTables {
     public static final int indentSize = 4;
 
     private final Table baseTable;
-    private final List selection = new ArrayList();
-    private final List criteria = new ArrayList();
-    private final List order = new ArrayList();
+    private final List<Selectable> selection = new ArrayList<Selectable>();
+    private final List<Criteria> criteria = new ArrayList<Criteria>();
+    private final List<Order> order = new ArrayList<Order>();
 
     private boolean isDistinct = false;
-    
+
     public SelectQuery(Table baseTable) {
         this.baseTable = baseTable;
     }
@@ -33,13 +33,13 @@ public class SelectQuery implements Outputable, CanReferToTables {
     public Table getBaseTable() {
         return baseTable;
     }
-    
+
     public void addToSelection(Selectable selectable) {
-    	selection.add(selectable);
+        selection.add(selectable);
     }
-    
+
     /**
-     * Syntax sugar for addColumn(Column).
+     * Syntax sugar for addToSelection(Column).
      */
     public void addColumn(Table table, String columname) {
         addToSelection(table.getColumn(columname));
@@ -52,10 +52,10 @@ public class SelectQuery implements Outputable, CanReferToTables {
     /**
      * @return a list of {@link Selectable} objects.
      */
-    public List listSelection() {
+    public List<Selectable> listSelection() {
         return Collections.unmodifiableList(selection);
     }
-    
+
     public boolean isDistinct() {
         return isDistinct;
     }
@@ -72,7 +72,7 @@ public class SelectQuery implements Outputable, CanReferToTables {
         this.criteria.remove(criteria);
     }
 
-    public List listCriteria() {
+    public List<Criteria> listCriteria() {
         return Collections.unmodifiableList(criteria);
     }
 
@@ -89,7 +89,7 @@ public class SelectQuery implements Outputable, CanReferToTables {
     public void addJoin(Table srcTable, String srcColumnName, String operator, Table destTable, String destColumnName) {
         addCriteria(new MatchCriteria(srcTable.getColumn(srcColumnName), operator, destTable.getColumn(destColumnName)));
     }
-    
+
     public void addOrder(Order order) {
         this.order.add(order);
     }
@@ -105,7 +105,7 @@ public class SelectQuery implements Outputable, CanReferToTables {
         this.order.remove(order);
     }
 
-    public List listOrder() {
+    public List<Order> listOrder() {
         return Collections.unmodifiableList(order);
     }
 
@@ -120,41 +120,36 @@ public class SelectQuery implements Outputable, CanReferToTables {
         }
         out.println();
 
-        // Add columns to select
-        out.indent();
-        appendList(out, selection, ",");
-        out.unindent();
+        appendIndentedList(out, selection, ",");
 
-        // Add tables to select from
         out.println("FROM");
 
-        // Determine all tables used in query
-        out.indent();
-        appendList(out, findAllUsedTables(), ",");
-        out.unindent();
+        appendIndentedList(out, findAllUsedTables(), ",");
 
         // Add criteria
         if (criteria.size() > 0) {
             out.println("WHERE");
-            out.indent();
-            appendList(out, criteria, "AND");
-            out.unindent();
+            appendIndentedList(out, criteria, "AND");
         }
 
         // Add order
         if (order.size() > 0) {
             out.println("ORDER BY");
-            out.indent();
-            appendList(out, order, ",");
-            out.unindent();
+            appendIndentedList(out, order, ",");
         }
+    }
+
+    private void appendIndentedList(Output out, Collection<? extends Outputable> things, String seperator) {
+        out.indent();
+        appendList(out, things, seperator);
+        out.unindent();
     }
 
     /**
      * Iterate through a Collection and append all entries (using .toString()) to
      * a StringBuffer.
      */
-    private void appendList(Output out, Collection collection, String seperator) {
+    private void appendList(Output out, Collection<? extends Outputable> collection, String seperator) {
         Iterator i = collection.iterator();
         boolean hasNext = i.hasNext();
 
@@ -173,37 +168,24 @@ public class SelectQuery implements Outputable, CanReferToTables {
     /**
      * Find all the tables used in the query (from columns, criteria and order).
      *
-     * @return List of {@link com.truemesh.squiggle.Table}s
+     * @return Set of {@link com.truemesh.squiggle.Table}s
      */
-    private Set findAllUsedTables() {
-    	Set tables = new LinkedHashSet();
-    	addReferencedTablesTo(tables);
+    private Set<Table> findAllUsedTables() {
+        Set<Table> tables = new LinkedHashSet<Table>();
+        addReferencedTablesTo(tables);
         return tables;
     }
 
-	public void addReferencedTablesTo(Set tables) {
-		tables.add(baseTable);
-    	
-    	{ // Get all tables used by selection
-    		Iterator i = selection.iterator(); 
-    		while (i.hasNext()) {
-    			((Selectable)i.next()).addReferencedTablesTo(tables);
-    		}
-    		
-    	}
-    	
-        { // Get all tables used by criteria
-            Iterator i = criteria.iterator();
-            while (i.hasNext()) {
-            	((Criteria)i.next()).addReferencedTablesTo(tables);
-            }
+    public void addReferencedTablesTo(Set<Table> tables) {
+        tables.add(baseTable);
+        for (Selectable s : selection) {
+            s.addReferencedTablesTo(tables);
         }
-        	
-        { // Get all tables used by columns
-            Iterator i = order.iterator();
-            while (i.hasNext()) {
-                ((Order)i.next()).addReferencedTablesTo(tables);
-            }
+        for (Criteria c : criteria) {
+            c.addReferencedTablesTo(tables);
         }
-	}
+        for (Order o : order) {
+            o.addReferencedTablesTo(tables);
+        }
+    }
 }
