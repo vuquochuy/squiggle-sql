@@ -14,8 +14,7 @@
 
     <target name="compile" description="Compile Squiggle">
         <mkdir dir="build/squiggle"/>
-        <javac srcdir="src" destdir="build/squiggle"
-                target="1.2"/>
+        <javac srcdir="src" destdir="build/squiggle"/>
     </target>
 
     <target name="compile-examples" depends="compile" description="Compile examples">
