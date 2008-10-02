@@ -16,7 +16,7 @@ import com.truemesh.squiggle.output.ToStringer;
  * @author <a href="joe@truemesh.com">Joe Walnes</a>
  * @author Nat Pryce
  */
-public class SelectQuery implements Outputable, CanReferToTables {
+public class SelectQuery implements Outputable, CanReferToTables, ValueSet {
     public static final int indentSize = 4;
 
     private final Table baseTable;

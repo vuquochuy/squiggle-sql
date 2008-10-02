@@ -1,54 +1,39 @@
 package com.truemesh.squiggle;
 
-import java.util.Collection;
-import java.util.Set;
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import com.truemesh.squiggle.output.Output;
-import com.truemesh.squiggle.literal.StringLiteral;
-import com.truemesh.squiggle.literal.IntegerLiteral;
-import com.truemesh.squiggle.literal.FloatLiteral;
+
+import java.util.Set;
 
 /**
  * @author <a href="joe@truemesh.com">Joe Walnes</a>
  * @author Nat Pryce
  */
 public class InCriteria extends Criteria {
-    private Matchable matched;
-    private Collection<Literal> literals;
-    private SelectQuery subSelect;
+    private final Matchable matched;
+    private final ValueSet valueSet;
 
-    public InCriteria(Matchable column, Collection<Literal> literals) {
-        this.matched = column;
-        this.literals = literals;
+    public InCriteria(Matchable matchable, ValueSet valueSet) {
+        this.matched = matchable;
+        this.valueSet = valueSet;
     }
 
     public InCriteria(Matchable column, String... values) {
         this.matched = column;
-        this.literals = new ArrayList<Literal>();
-        for (String value : values) literals.add(new StringLiteral(value));
+        this.valueSet = new LiteralValueSet(values);
     }
 
     public InCriteria(Matchable column, long... values) {
         this.matched = column;
-        this.literals = new ArrayList<Literal>();
-        for (long value : values) literals.add(new IntegerLiteral(value));
+        this.valueSet = new LiteralValueSet(values);
     }
 
     public InCriteria(Matchable column, double... values) {
         this.matched = column;
-        this.literals = new ArrayList<Literal>();
-        for (double value : values) literals.add(new FloatLiteral(value));
+        this.valueSet = new LiteralValueSet(values);
     }
 
-    public InCriteria(Matchable column, SelectQuery subSelect) {
-        this.matched = column;
-        this.subSelect = subSelect;
-    }
-
-    public InCriteria(Table table, String columnname, Collection<Literal> literals) {
-        this(table.getColumn(columnname), literals);
+    public InCriteria(Table table, String columnname, ValueSet valueSet) {
+        this(table.getColumn(columnname), valueSet);
     }
 
     public InCriteria(Table table, String columnname, String[] values) {
@@ -63,10 +48,6 @@ public class InCriteria extends Criteria {
         this(table.getColumn(columnname), values);
     }
 
-    public InCriteria(Table table, String columnname, SelectQuery subSelect) {
-        this(table.getColumn(columnname), subSelect);
-    }
-
     public Matchable getMatched() {
         return matched;
     }
@@ -75,19 +56,7 @@ public class InCriteria extends Criteria {
         out.print(matched);
         out.println(" IN (");
         out.indent();
-
-        if (subSelect != null) {
-            subSelect.write(out);
-        } else {
-            for (Iterator<Literal> it = literals.iterator(); it.hasNext();) {
-                Literal literal = it.next();
-                literal.write(out);
-                if (it.hasNext()) {
-                    out.print(", ");
-                }
-            }
-        }
-
+        valueSet.write(out);
         out.println();
         out.unindent();
         out.print(")");
