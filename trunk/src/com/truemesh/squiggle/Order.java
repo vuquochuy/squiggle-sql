@@ -43,7 +43,7 @@ public class Order implements Outputable, CanReferToTables {
         }
     }
 
-	public void addReferencedTablesTo(Set tables) {
+	public void addReferencedTablesTo(Set<Table> tables) {
 		column.addReferencedTablesTo(tables);
 	}
 }

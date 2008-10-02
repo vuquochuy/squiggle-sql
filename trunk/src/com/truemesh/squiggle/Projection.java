@@ -18,7 +18,7 @@ public abstract class Projection implements Selectable {
 		return table;
 	}
 
-	public void addReferencedTablesTo(Set tables) {
+	public void addReferencedTablesTo(Set<Table> tables) {
 		tables.add(table);
 	}
 }
