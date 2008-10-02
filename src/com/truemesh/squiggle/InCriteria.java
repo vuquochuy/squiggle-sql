@@ -12,6 +12,7 @@ import com.truemesh.squiggle.literal.FloatLiteral;
 
 /**
  * @author <a href="joe@truemesh.com">Joe Walnes</a>
+ * @author Nat Pryce
  */
 public class InCriteria extends Criteria {
     private Matchable matched;
@@ -50,15 +51,15 @@ public class InCriteria extends Criteria {
         this(table.getColumn(columnname), literals);
     }
 
-    public InCriteria(Table table, String columnname, String... values) {
+    public InCriteria(Table table, String columnname, String[] values) {
         this(table.getColumn(columnname), values);
     }
 
-    public InCriteria(Table table, String columnname, double... values) {
+    public InCriteria(Table table, String columnname, double[] values) {
         this(table.getColumn(columnname), values);
     }
 
-    public InCriteria(Table table, String columnname, long... values) {
+    public InCriteria(Table table, String columnname, long[] values) {
         this(table.getColumn(columnname), values);
     }
 
@@ -92,7 +93,7 @@ public class InCriteria extends Criteria {
         out.print(")");
     }
 
-    public void addReferencedTablesTo(Set tables) {
+    public void addReferencedTablesTo(Set<Table> tables) {
         matched.addReferencedTablesTo(tables);
     }
 }
