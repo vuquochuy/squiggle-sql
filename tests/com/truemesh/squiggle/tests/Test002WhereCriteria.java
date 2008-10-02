@@ -1,12 +1,19 @@
 package com.truemesh.squiggle.tests;
 
-import com.truemesh.squiggle.*;
-import com.truemesh.squiggle.literal.FloatLiteral;
 import static org.junit.Assert.assertThat;
+
 import org.junit.Test;
 
+import com.truemesh.squiggle.SelectQuery;
+import com.truemesh.squiggle.Table;
+import com.truemesh.squiggle.criteria.BetweenCriteria;
+import com.truemesh.squiggle.criteria.InCriteria;
+import com.truemesh.squiggle.criteria.IsNotNullCriteria;
+import com.truemesh.squiggle.criteria.IsNullCriteria;
+import com.truemesh.squiggle.criteria.MatchCriteria;
+
 public class Test002WhereCriteria {
-    @Test
+	@Test
     public void whereCriteria() {
         Table people = new Table("people");
 
@@ -35,5 +42,28 @@ public class Test002WhereCriteria {
                 "    ) AND" +
                 "    people.age BETWEEN 18 AND 30"));
 
+    }
+	
+	@Test
+    public void nullCriteria() {
+        Table people = new Table("people");
+        
+        SelectQuery select = new SelectQuery(people);
+        
+        select.addToSelection(people.getWildcard());
+
+        select.addCriteria(
+        		new IsNullCriteria(people.getColumn("name")));
+        select.addCriteria(
+                new IsNotNullCriteria(people.getColumn("age")));
+
+        assertThat(select, SqlMatcher.generatesSql(
+                "SELECT " +
+                "    people.* " +
+                "FROM " +
+                "    people " +
+                "WHERE " +
+                "    people.name IS NULL AND " +
+                "    people.age IS NOT NULL"));
     }
 }

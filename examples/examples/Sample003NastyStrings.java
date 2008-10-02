@@ -1,6 +1,7 @@
 package examples;
 
 import com.truemesh.squiggle.*;
+import com.truemesh.squiggle.criteria.MatchCriteria;
 
 public class Sample003NastyStrings {
     public static void main(String[] args) {

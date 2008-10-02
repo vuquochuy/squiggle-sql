@@ -1,7 +1,7 @@
-package com.truemesh.squiggle;
+package com.truemesh.squiggle.criteria;
 
-import com.truemesh.squiggle.BaseLogicGroup;
 import com.truemesh.squiggle.Criteria;
+import com.truemesh.squiggle.criteria.BaseLogicGroup;
 
 /**
  * Class NOT is a {@link BaseLogicGroup} extension that generates the SQL syntax
