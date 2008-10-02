@@ -1,6 +1,9 @@
 package examples;
 
 import com.truemesh.squiggle.*;
+import com.truemesh.squiggle.criteria.AND;
+import com.truemesh.squiggle.criteria.MatchCriteria;
+import com.truemesh.squiggle.criteria.OR;
 
 public class Sample009OrAnd {
     public static void main(String[] args) {

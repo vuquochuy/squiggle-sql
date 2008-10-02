@@ -1,6 +1,8 @@
 package examples;
 
 import com.truemesh.squiggle.*;
+import com.truemesh.squiggle.criteria.InCriteria;
+import com.truemesh.squiggle.criteria.MatchCriteria;
 
 public class Sample007SubSelect {
     public static void main(String[] args) {

@@ -1,4 +1,6 @@
-package com.truemesh.squiggle;
+package com.truemesh.squiggle.criteria;
+
+import com.truemesh.squiggle.Criteria;
 
 
 

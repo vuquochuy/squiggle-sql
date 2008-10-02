@@ -1,6 +1,10 @@
 package com.truemesh.squiggle.tests;
 
 import com.truemesh.squiggle.*;
+import com.truemesh.squiggle.criteria.AND;
+import com.truemesh.squiggle.criteria.MatchCriteria;
+import com.truemesh.squiggle.criteria.OR;
+
 import org.junit.Test;
 import static org.junit.Assert.assertThat;
 

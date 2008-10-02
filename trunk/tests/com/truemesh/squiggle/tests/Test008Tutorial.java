@@ -2,8 +2,9 @@ package com.truemesh.squiggle.tests;
 
 import com.truemesh.squiggle.SelectQuery;
 import com.truemesh.squiggle.Table;
-import com.truemesh.squiggle.MatchCriteria;
-import com.truemesh.squiggle.InCriteria;
+import com.truemesh.squiggle.criteria.InCriteria;
+import com.truemesh.squiggle.criteria.MatchCriteria;
+
 import static com.truemesh.squiggle.tests.SqlMatcher.generatesSql;
 import org.junit.Test;
 import static org.junit.Assert.assertThat;

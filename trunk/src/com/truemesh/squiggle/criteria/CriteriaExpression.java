@@ -1,8 +1,10 @@
-package com.truemesh.squiggle;
+package com.truemesh.squiggle.criteria;
 
 import java.util.List;
 import java.util.Set;
 
+import com.truemesh.squiggle.Criteria;
+import com.truemesh.squiggle.Table;
 import com.truemesh.squiggle.output.Output;
 
 /**

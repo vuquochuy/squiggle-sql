@@ -2,8 +2,8 @@ package examples;
 
 import com.truemesh.squiggle.SelectQuery;
 import com.truemesh.squiggle.Table;
-import com.truemesh.squiggle.MatchCriteria;
-import com.truemesh.squiggle.InCriteria;
+import com.truemesh.squiggle.criteria.InCriteria;
+import com.truemesh.squiggle.criteria.MatchCriteria;
 
 public class Sample008Tutorial {
 

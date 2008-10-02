@@ -8,6 +8,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.truemesh.squiggle.criteria.MatchCriteria;
 import com.truemesh.squiggle.output.Output;
 import com.truemesh.squiggle.output.Outputable;
 import com.truemesh.squiggle.output.ToStringer;

@@ -1,6 +1,8 @@
 package com.truemesh.squiggle.tests;
 
 import com.truemesh.squiggle.*;
+import com.truemesh.squiggle.criteria.BetweenCriteria;
+
 import org.junit.Test;
 import static org.junit.Assert.assertThat;
 

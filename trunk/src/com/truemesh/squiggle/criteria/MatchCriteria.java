@@ -1,9 +1,13 @@
-package com.truemesh.squiggle;
+package com.truemesh.squiggle.criteria;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 
+import com.truemesh.squiggle.Column;
+import com.truemesh.squiggle.Criteria;
+import com.truemesh.squiggle.Matchable;
+import com.truemesh.squiggle.Table;
 import com.truemesh.squiggle.literal.BooleanLiteral;
 import com.truemesh.squiggle.literal.FloatLiteral;
 import com.truemesh.squiggle.literal.IntegerLiteral;

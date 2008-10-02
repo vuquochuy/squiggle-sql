@@ -1,5 +1,8 @@
-package com.truemesh.squiggle;
+package com.truemesh.squiggle.criteria;
 
+import com.truemesh.squiggle.Criteria;
+import com.truemesh.squiggle.Matchable;
+import com.truemesh.squiggle.Table;
 import com.truemesh.squiggle.literal.BigDecimalLiteral;
 import com.truemesh.squiggle.literal.DateTimeLiteral;
 import com.truemesh.squiggle.literal.FloatLiteral;

@@ -1,6 +1,8 @@
 package com.truemesh.squiggle.tests;
 
 import com.truemesh.squiggle.*;
+import com.truemesh.squiggle.criteria.MatchCriteria;
+
 import static com.truemesh.squiggle.tests.SqlMatcher.generatesSql;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
