@@ -30,7 +30,7 @@ public abstract class BaseLogicGroup extends Criteria {
             .print(" )");
     }
 
-	public void addReferencedTablesTo(Set tables) {
+	public void addReferencedTablesTo(Set<Table> tables) {
 		left.addReferencedTablesTo(tables);
 		right.addReferencedTablesTo(tables);
 	}

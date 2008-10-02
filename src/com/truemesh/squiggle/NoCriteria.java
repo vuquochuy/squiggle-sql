@@ -22,6 +22,6 @@ public class NoCriteria extends Criteria {
 		out.print(' ');
 	}
 
-	public void addReferencedTablesTo(Set tables) {
+	public void addReferencedTablesTo(Set<Table> tables) {
 	}
 }

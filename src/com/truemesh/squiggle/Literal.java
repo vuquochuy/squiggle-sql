@@ -11,6 +11,6 @@ import com.truemesh.squiggle.output.Outputable;
  * 
  */
 public abstract class Literal implements Outputable, Matchable, Selectable {
-	public void addReferencedTablesTo(Set tables) {
+	public void addReferencedTablesTo(Set<Table> tables) {
 	}
 }

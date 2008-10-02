@@ -9,6 +9,6 @@ public class Parameter implements Matchable {
 		out.print("?");
 	}
 
-	public void addReferencedTablesTo(Set tables) {
+	public void addReferencedTablesTo(Set<Table> tables) {
 	}
 }

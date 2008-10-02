@@ -65,7 +65,7 @@ public class BetweenCriteria extends Criteria {
         upper.write(out);
 	}
 
-	public void addReferencedTablesTo(Set tables) {
+	public void addReferencedTablesTo(Set<Table> tables) {
 		column.addReferencedTablesTo(tables);
 	}
 }

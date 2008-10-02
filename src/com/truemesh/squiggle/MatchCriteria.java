@@ -112,7 +112,7 @@ public class MatchCriteria extends Criteria {
         right.write(out);
     }
 
-	public void addReferencedTablesTo(Set tables) {
+	public void addReferencedTablesTo(Set<Table> tables) {
 		left.addReferencedTablesTo(tables);
 		right.addReferencedTablesTo(tables);
 	}

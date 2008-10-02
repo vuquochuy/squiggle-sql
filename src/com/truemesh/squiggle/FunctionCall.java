@@ -15,6 +15,6 @@ public class FunctionCall implements Matchable, Selectable {
         out.print(functionName).print("()");
     }
 
-    public void addReferencedTablesTo(Set tables) {
+    public void addReferencedTablesTo(Set<Table> tables) {
     }
 }

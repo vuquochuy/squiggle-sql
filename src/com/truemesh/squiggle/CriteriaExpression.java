@@ -174,7 +174,7 @@ public class CriteriaExpression extends Criteria {
 		}
 	}
 
-	public void addReferencedTablesTo(Set tables) {
+	public void addReferencedTablesTo(Set<Table> tables) {
 		term.addReferencedTablesTo(tables);
 		if (expression != null) expression.addReferencedTablesTo(tables);
 	}
