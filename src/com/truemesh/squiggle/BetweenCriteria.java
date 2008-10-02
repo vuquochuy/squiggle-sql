@@ -19,7 +19,7 @@ import java.util.Set;
  */
 public class BetweenCriteria extends Criteria {
 	private final Matchable column;
-	private final Literal lower, upper; // TODO: can these be Matchables?
+	private final Matchable lower, upper; // TODO: can these be Matchables?
 
     /**
 	 * Initializes a new BetweenCriteria with a matchable operand and the upper
@@ -35,7 +35,7 @@ public class BetweenCriteria extends Criteria {
      * @param upper
      *            the upper bound of the BETWEEN operator
 	 */
-    public BetweenCriteria(Matchable operand, Literal lower, Literal upper) {
+    public BetweenCriteria(Matchable operand, Matchable lower, Matchable upper) {
         this.column = operand;
         this.lower = lower;
         this.upper = upper;

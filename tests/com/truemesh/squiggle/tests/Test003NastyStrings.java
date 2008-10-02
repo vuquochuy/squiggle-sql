@@ -5,7 +5,6 @@ import static com.truemesh.squiggle.tests.SqlMatcher.generatesSql;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
-
 public class Test003NastyStrings {
     @Test
     public void testNastyStrings() {
