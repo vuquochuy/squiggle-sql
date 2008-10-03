@@ -22,10 +22,10 @@ import java.util.Set;
  */
 public class BetweenCriteria extends Criteria {
 	private final Matchable column;
-	private final Matchable lower, upper; // TODO: can these be Matchables?
+	private final Matchable lower, upper;
 
     /**
-	 * Initializes a new BetweenCriteria with a matchable operand and the upper
+	 * Initializes a new BetweenCriteria with an operand and the upper
      * and lower bounds of the SQL BETWEEN operator.
 	 *
 	 * @param operand
@@ -38,12 +38,12 @@ public class BetweenCriteria extends Criteria {
      * @param upper
      *            the upper bound of the BETWEEN operator
 	 */
-    public BetweenCriteria(Matchable operand, Matchable lower, Matchable upper) {
+    public <T extends Matchable> BetweenCriteria(Matchable operand, T lower, T upper) {
         this.column = operand;
         this.lower = lower;
         this.upper = upper;
     }
-
+    
 	public BetweenCriteria(Matchable operand, BigDecimal lower, BigDecimal upper) {
         this(operand, new BigDecimalLiteral(lower), new BigDecimalLiteral(upper));
 	}

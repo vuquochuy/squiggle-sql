@@ -10,7 +10,7 @@ public class Sample006TableAliases {
         Table employees = new Table("people", "employees");
         Table managers = new Table("people", "managers");
 
-        SelectQuery select = new SelectQuery(employees); // base table
+        SelectQuery select = new SelectQuery(); // base table
 
         select.addColumn(employees, "firstname");
         select.addColumn(managers, "firstname");

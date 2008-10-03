@@ -12,13 +12,12 @@ import com.truemesh.squiggle.output.ToStringer;
  * @author <a href="joe@truemesh.com">Joe Walnes</a>
  */
 public class Order implements Outputable, CanReferToTables {
-
     public static final boolean ASCENDING = true;
     public static final boolean DESCENDING = false;
-
+    
     private Column column;
     private boolean ascending;
-
+    
     /**
      * @param column    Column to order by.
      * @param ascending Order.ASCENDING or Order.DESCENDING

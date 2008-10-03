@@ -19,20 +19,17 @@ import com.truemesh.squiggle.output.ToStringer;
  */
 public class SelectQuery implements Outputable, CanReferToTables, ValueSet {
     public static final int indentSize = 4;
-
-    private final Table baseTable;
+    
     private final List<Selectable> selection = new ArrayList<Selectable>();
     private final List<Criteria> criteria = new ArrayList<Criteria>();
     private final List<Order> order = new ArrayList<Order>();
 
     private boolean isDistinct = false;
 
-    public SelectQuery(Table baseTable) {
-        this.baseTable = baseTable;
-    }
-
-    public Table getBaseTable() {
-        return baseTable;
+    public List<Table> listTables() {
+    	LinkedHashSet<Table> tables = new LinkedHashSet<Table>();
+    	addReferencedTablesTo(tables);
+    	return new ArrayList<Table>(tables);
     }
 
     public void addToSelection(Selectable selectable) {
@@ -123,10 +120,12 @@ public class SelectQuery implements Outputable, CanReferToTables, ValueSet {
 
         appendIndentedList(out, selection, ",");
 
-        out.println("FROM");
-
-        appendIndentedList(out, findAllUsedTables(), ",");
-
+        Set<Table> tables = findAllUsedTables();
+        if (!tables.isEmpty()) {
+	        out.println("FROM");
+			appendIndentedList(out, tables, ",");
+        }
+        
         // Add criteria
         if (criteria.size() > 0) {
             out.println("WHERE");
@@ -151,7 +150,7 @@ public class SelectQuery implements Outputable, CanReferToTables, ValueSet {
      * a StringBuffer.
      */
     private void appendList(Output out, Collection<? extends Outputable> collection, String seperator) {
-        Iterator i = collection.iterator();
+        Iterator<? extends Outputable> i = collection.iterator();
         boolean hasNext = i.hasNext();
 
         while (hasNext) {
@@ -165,7 +164,7 @@ public class SelectQuery implements Outputable, CanReferToTables, ValueSet {
             out.println();
         }
     }
-
+    
     /**
      * Find all the tables used in the query (from columns, criteria and order).
      *
@@ -178,7 +177,6 @@ public class SelectQuery implements Outputable, CanReferToTables, ValueSet {
     }
 
     public void addReferencedTablesTo(Set<Table> tables) {
-        tables.add(baseTable);
         for (Selectable s : selection) {
             s.addReferencedTablesTo(tables);
         }

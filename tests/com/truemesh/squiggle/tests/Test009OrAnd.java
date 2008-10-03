@@ -13,7 +13,7 @@ public class Test009OrAnd {
     public void orAnd() {
         Table user = new Table("user");
 
-        SelectQuery select = new SelectQuery(user);
+        SelectQuery select = new SelectQuery();
 
         select.addToSelection(new WildCardColumn(user));
 

@@ -10,7 +10,7 @@ public class Test004SelectWildcardColumn {
     public void selectWildcardColumn() {
         Table people = new Table("people");
 
-        SelectQuery select = new SelectQuery(people);
+        SelectQuery select = new SelectQuery();
 
         select.addToSelection(people.getWildcard());
 

@@ -14,10 +14,10 @@ public class Test007SubSelect {
         Table people = new Table("people");
         Table taxcodes = new Table("taxcodes");
 
-        SelectQuery select = new SelectQuery(people);
+        SelectQuery select = new SelectQuery();
         select.addColumn(people, "firstname");
 
-        SelectQuery subSelect = new SelectQuery(taxcodes);
+        SelectQuery subSelect = new SelectQuery();
         subSelect.addColumn(taxcodes, "id");
         subSelect.addCriteria(new MatchCriteria(taxcodes, "valid", MatchCriteria.EQUALS, true));
 

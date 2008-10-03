@@ -17,7 +17,7 @@ public class Test002WhereCriteria {
     public void whereCriteria() {
         Table people = new Table("people");
 
-        SelectQuery select = new SelectQuery(people);
+        SelectQuery select = new SelectQuery();
 
         select.addColumn(people, "firstname");
         select.addColumn(people, "lastname");
@@ -48,7 +48,7 @@ public class Test002WhereCriteria {
     public void nullCriteria() {
         Table people = new Table("people");
         
-        SelectQuery select = new SelectQuery(people);
+        SelectQuery select = new SelectQuery();
         
         select.addToSelection(people.getWildcard());
 

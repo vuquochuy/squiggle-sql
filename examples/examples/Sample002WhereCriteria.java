@@ -9,7 +9,7 @@ public class Sample002WhereCriteria {
 
         Table people = new Table("people");
 
-        SelectQuery select = new SelectQuery(people);
+        SelectQuery select = new SelectQuery();
 
         select.addColumn(people, "firstname");
         select.addColumn(people, "lastname");
