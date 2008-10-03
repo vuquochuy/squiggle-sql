@@ -14,7 +14,7 @@ public class Test008Tutorial {
     public void tutorial() {
         // basic query
         Table orders = new Table("orders_table");
-        SelectQuery select = new SelectQuery(orders);
+        SelectQuery select = new SelectQuery();
 
         // add columns
         select.addColumn(orders, "id");
@@ -38,7 +38,7 @@ public class Test008Tutorial {
 
         // build subselect query
         Table offers = new Table("offers_table");
-        SelectQuery subSelect = new SelectQuery(offers);
+        SelectQuery subSelect = new SelectQuery();
         subSelect.addColumn(offers, "location");
         subSelect.addCriteria(new MatchCriteria(offers, "valid", MatchCriteria.EQUALS, true));
 

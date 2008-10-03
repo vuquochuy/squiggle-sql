@@ -1,10 +1,11 @@
 package com.truemesh.squiggle.tests;
 
-import org.hamcrest.TypeSafeMatcher;
+import static org.hamcrest.Matchers.equalToIgnoringWhiteSpace;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
-import static org.hamcrest.Matchers.equalToIgnoringWhiteSpace;
+import org.hamcrest.TypeSafeMatcher;
+
 import com.truemesh.squiggle.output.Outputable;
 import com.truemesh.squiggle.output.ToStringer;
 

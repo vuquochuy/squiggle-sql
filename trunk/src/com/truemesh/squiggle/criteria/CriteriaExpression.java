@@ -107,12 +107,12 @@ public class CriteriaExpression extends Criteria {
 	 *            {@link Operator#OR OR} that joins each criteria term with the
 	 *            next in the list.
 	 */
-	public CriteriaExpression(final List terms, int operator) {
+	public CriteriaExpression(final List<Criteria> terms, int operator) {
 		this.operator = operator;
 		if (terms.size() == 0)
 			;
 		else {
-			this.term = (Criteria) terms.get(0);
+			this.term = terms.get(0);
 			if (terms.size() > 1)
 				this.expression = new CriteriaExpression(terms.subList(1, terms
 						.size()), operator);

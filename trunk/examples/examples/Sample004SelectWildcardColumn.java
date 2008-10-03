@@ -7,7 +7,7 @@ public class Sample004SelectWildcardColumn {
 
         Table people = new Table("people");
 
-        SelectQuery select = new SelectQuery(people);
+        SelectQuery select = new SelectQuery();
 
         select.addToSelection(new WildCardColumn(people));
 

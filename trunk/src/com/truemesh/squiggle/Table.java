@@ -9,11 +9,11 @@ import com.truemesh.squiggle.output.ToStringer;
  * @author Nat Pryce
  */
 public class Table implements Outputable {
-    private String name;
-    private String alias;
+    private final String name;
+    private final String alias;
 
     public Table(String name) {
-        this.name = name;
+        this(name, null);
     }
 
     public Table(String name, String alias) {
@@ -39,9 +39,9 @@ public class Table implements Outputable {
      * Short alias of table
      */
     public String getAlias() {
-        return hasAlias() ? alias : name;
+        return alias != null ? alias : name;
     }
-
+    
     /**
      * Get a column for a particular table.
      */
@@ -54,11 +54,22 @@ public class Table implements Outputable {
     }
 
     public boolean equals(Object o) {
-        if (o == null) return false;
-        if (!(o instanceof Table)) return false;
-        return getAlias().equals(((Table) o).getAlias());
+		if (this == o)
+			return true;
+		if (o == null)
+			return false;
+		if (getClass() != o.getClass())
+			return false;
+		
+        Table that = (Table)o;
+        
+		return getAlias().equals(that.getAlias());
     }
-
+    
+    public int hashCode() {
+    	return getAlias().hashCode();
+    }
+    
     public void write(Output out) {
         out.print(getName());
         if (hasAlias()) {
@@ -66,7 +77,7 @@ public class Table implements Outputable {
             out.print(getAlias());
         }
     }
-
+    
     public String toString() {
         return ToStringer.toString(this);
     }

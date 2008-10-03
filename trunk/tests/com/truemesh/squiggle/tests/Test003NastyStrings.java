@@ -12,7 +12,7 @@ public class Test003NastyStrings {
     public void testNastyStrings() {
         Table people = new Table("people");
 
-        SelectQuery select = new SelectQuery(people);
+        SelectQuery select = new SelectQuery();
 
         select.addColumn(people, "firstname");
 

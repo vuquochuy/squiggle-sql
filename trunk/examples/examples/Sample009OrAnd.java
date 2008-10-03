@@ -10,7 +10,7 @@ public class Sample009OrAnd {
 
         Table user = new Table("user");
 
-        SelectQuery select = new SelectQuery(user);
+        SelectQuery select = new SelectQuery();
 
         select.addToSelection(new WildCardColumn(user));
 

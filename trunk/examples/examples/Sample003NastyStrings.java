@@ -8,7 +8,7 @@ public class Sample003NastyStrings {
 
         Table people = new Table("people");
 
-        SelectQuery select = new SelectQuery(people);
+        SelectQuery select = new SelectQuery();
 
         select.addColumn(people, "firstname");
 

@@ -8,7 +8,7 @@ public class Sample005Join {
         Table people = new Table("people");
         Table departments = new Table("departments");
 
-        SelectQuery select = new SelectQuery(people); // base table
+        SelectQuery select = new SelectQuery(); // base table
 
         select.addColumn(people, "firstname");
         select.addColumn(departments, "director");
