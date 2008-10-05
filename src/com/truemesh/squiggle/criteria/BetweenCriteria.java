@@ -1,5 +1,9 @@
 package com.truemesh.squiggle.criteria;
 
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.Set;
+
 import com.truemesh.squiggle.Criteria;
 import com.truemesh.squiggle.Matchable;
 import com.truemesh.squiggle.Table;
@@ -8,10 +12,6 @@ import com.truemesh.squiggle.literal.DateTimeLiteral;
 import com.truemesh.squiggle.literal.FloatLiteral;
 import com.truemesh.squiggle.literal.IntegerLiteral;
 import com.truemesh.squiggle.output.Output;
-
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.util.Set;
 
 /**
  * Class BetweenCriteria is a Criteria extension that generates the SQL syntax

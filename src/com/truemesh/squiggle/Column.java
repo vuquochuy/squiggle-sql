@@ -2,7 +2,6 @@ package com.truemesh.squiggle;
 
 
 import com.truemesh.squiggle.output.Output;
-import com.truemesh.squiggle.output.ToStringer;
 
 /**
  * @author <a href="joe@truemesh.com">Joe Walnes</a>
@@ -18,10 +17,6 @@ public class Column extends Projection implements Matchable {
 
     public String getName() {
         return name;
-    }
-
-    public String toString() {
-        return ToStringer.toString(this);
     }
 
     public void write(Output out) {

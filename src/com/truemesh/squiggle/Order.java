@@ -4,7 +4,6 @@ import java.util.Set;
 
 import com.truemesh.squiggle.output.Output;
 import com.truemesh.squiggle.output.Outputable;
-import com.truemesh.squiggle.output.ToStringer;
 
 /**
  * ORDER BY clause. See SelectQuery.addOrder(Order).
@@ -29,10 +28,6 @@ public class Order implements Outputable {
 
     public Projection getColumn() {
         return column;
-    }
-
-    public String toString() {
-        return ToStringer.toString(this);
     }
 
     public void write(Output out) {

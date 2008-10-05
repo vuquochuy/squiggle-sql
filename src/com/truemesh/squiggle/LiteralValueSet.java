@@ -1,13 +1,17 @@
 package com.truemesh.squiggle;
 
-import com.truemesh.squiggle.output.Output;
-import com.truemesh.squiggle.literal.*;
-
-import java.util.Collection;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
-import java.math.BigDecimal;
+
+import com.truemesh.squiggle.literal.BigDecimalLiteral;
+import com.truemesh.squiggle.literal.DateTimeLiteral;
+import com.truemesh.squiggle.literal.FloatLiteral;
+import com.truemesh.squiggle.literal.IntegerLiteral;
+import com.truemesh.squiggle.literal.StringLiteral;
+import com.truemesh.squiggle.output.Output;
 
 public class LiteralValueSet implements ValueSet {
     private final Collection<Literal> literals;

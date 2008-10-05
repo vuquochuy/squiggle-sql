@@ -23,13 +23,13 @@ public abstract class BaseLogicGroup extends Criteria {
     }
 
     public void write(Output out) {
-        out.print("( ")
-            .print(left)
-            .print(' ')
-            .print(operator)
-            .print(' ')
-            .print(right)
-            .print(" )");
+        out.print("( ");
+        left.write(out);
+        out.print(' ')
+           .print(operator)
+           .print(' ');
+        right.write(out);
+        out.print(" )");
     }
 
 	public void addReferencedTablesTo(Set<Table> tables) {
