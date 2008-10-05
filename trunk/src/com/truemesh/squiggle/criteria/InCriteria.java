@@ -1,13 +1,13 @@
 package com.truemesh.squiggle.criteria;
 
+import java.util.Set;
+
 import com.truemesh.squiggle.Criteria;
 import com.truemesh.squiggle.LiteralValueSet;
 import com.truemesh.squiggle.Matchable;
 import com.truemesh.squiggle.Table;
 import com.truemesh.squiggle.ValueSet;
 import com.truemesh.squiggle.output.Output;
-
-import java.util.Set;
 
 /**
  * @author <a href="joe@truemesh.com">Joe Walnes</a>
@@ -58,7 +58,7 @@ public class InCriteria extends Criteria {
     }
 
     public void write(Output out) {
-        out.print(matched);
+        matched.write(out);
         out.println(" IN (");
         out.indent();
         valueSet.write(out);
