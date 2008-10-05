@@ -38,7 +38,7 @@ public class BetweenCriteria extends Criteria {
      * @param upper
      *            the upper bound of the BETWEEN operator
 	 */
-    public <T extends Matchable> BetweenCriteria(Matchable operand, T lower, T upper) {
+    public BetweenCriteria(Matchable operand, Matchable lower, Matchable upper) {
         this.column = operand;
         this.lower = lower;
         this.upper = upper;
