@@ -11,7 +11,7 @@ import com.truemesh.squiggle.output.ToStringer;
  * 
  * @author <a href="joe@truemesh.com">Joe Walnes</a>
  */
-public class Order implements Outputable, CanReferToTables {
+public class Order implements Outputable {
     public static final boolean ASCENDING = true;
     public static final boolean DESCENDING = false;
     

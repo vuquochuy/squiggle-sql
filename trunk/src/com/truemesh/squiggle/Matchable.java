@@ -1,5 +1,7 @@
 package com.truemesh.squiggle;
 
+import java.util.Set;
+
 import com.truemesh.squiggle.output.Outputable;
 
 /**
@@ -7,6 +9,6 @@ import com.truemesh.squiggle.output.Outputable;
  * 
  * @author Nat Pryce
  */
-public interface Matchable extends Outputable, CanReferToTables {
-
+public interface Matchable extends Outputable {
+	void addReferencedTablesTo(Set<Table> tables);
 }
