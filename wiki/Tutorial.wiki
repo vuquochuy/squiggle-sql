@@ -213,4 +213,4 @@ You should have a solid idea of how to use Squiggle now, including:
   * Joining tables.
   * Performing sub-selects.
 
-From here, the best way to learn more about Squiggle is by exploring the API, looking at the source code and tests, and experimenting.
+From here, the best way to learn more about Squiggle is by looking at the [http://code.google.com/p/squiggle-sql/source/browse/#svn/trunk/tests/com/truemesh/squiggle/tests examples], exploring the API, looking at the source code and experimenting.
