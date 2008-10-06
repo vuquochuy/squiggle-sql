@@ -146,10 +146,11 @@ WHERE
     warehouses_table.size = 'big'
 }}}
 
+!SelectQuery.addJoin() is a bit of convenient syntactic sugar: it adds a !MatchCriteria that refers to columns of two different tables.  You can add a !MatchCriteria directly if its easier.  The !SelectQuery will still add the appropriate tables to the FROM clause when it generates SQL.
 
 ==Performing sub-selects==
 
-To perform a sub-select (query within query), you build a separate query using a new instance of SelectQuery, and then add it to the first using an InCriteria.
+To perform a sub-select (query within query), you build a separate query using a new instance of !SelectQuery, and then add it to the first using an !InCriteria.
 
 So, here's a new select statement:
 
