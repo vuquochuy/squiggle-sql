@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import com.truemesh.squiggle.SelectQuery;
 import com.truemesh.squiggle.Table;
+import com.truemesh.squiggle.tests.support.SqlMatcher;
 import com.truemesh.squiggle.criteria.BetweenCriteria;
 import com.truemesh.squiggle.criteria.InCriteria;
 import com.truemesh.squiggle.criteria.IsNotNullCriteria;

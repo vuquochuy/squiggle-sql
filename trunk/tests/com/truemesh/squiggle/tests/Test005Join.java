@@ -4,7 +4,7 @@ import com.truemesh.squiggle.*;
 import com.truemesh.squiggle.criteria.MatchCriteria;
 
 import static com.truemesh.squiggle.criteria.MatchCriteria.GREATER;
-import static com.truemesh.squiggle.tests.SqlMatcher.generatesSql;
+import static com.truemesh.squiggle.tests.support.SqlMatcher.generatesSql;
 import org.junit.Test;
 import static org.junit.Assert.assertThat;
 
