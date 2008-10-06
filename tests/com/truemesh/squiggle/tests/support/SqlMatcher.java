@@ -1,4 +1,4 @@
-package com.truemesh.squiggle.tests;
+package com.truemesh.squiggle.tests.support;
 
 import static org.hamcrest.Matchers.equalToIgnoringWhiteSpace;
 

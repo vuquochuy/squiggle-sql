@@ -1,6 +1,7 @@
 package com.truemesh.squiggle.tests;
 
 import com.truemesh.squiggle.*;
+import com.truemesh.squiggle.tests.support.SqlMatcher;
 import com.truemesh.squiggle.criteria.AND;
 import com.truemesh.squiggle.criteria.MatchCriteria;
 import com.truemesh.squiggle.criteria.OR;
