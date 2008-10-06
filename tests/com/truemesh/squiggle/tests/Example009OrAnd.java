@@ -9,7 +9,7 @@ import com.truemesh.squiggle.criteria.OR;
 import org.junit.Test;
 import static org.junit.Assert.assertThat;
 
-public class Test009OrAnd {
+public class Example009OrAnd {
     @Test
     public void orAnd() {
         Table user = new Table("user");

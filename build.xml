@@ -34,8 +34,7 @@
 			
 			<batchtest haltonfailure="yes">
 				<fileset dir="tests">
-					<include name="**/Test*.java"/>
-					<exclude name="**/Abstract*"/>
+					<include name="**/Example*.java"/>
 				</fileset>
 			</batchtest>
 		</junit>

@@ -7,7 +7,7 @@ import static com.truemesh.squiggle.tests.support.SqlMatcher.generatesSql;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
-public class Test003NastyStrings {
+public class Example003NastyStrings {
     @Test
     public void testNastyStrings() {
         Table people = new Table("people");

@@ -13,7 +13,7 @@ import com.truemesh.squiggle.criteria.IsNotNullCriteria;
 import com.truemesh.squiggle.criteria.IsNullCriteria;
 import com.truemesh.squiggle.criteria.MatchCriteria;
 
-public class Test002WhereCriteria {
+public class Example002WhereCriteria {
 	@Test
     public void whereCriteria() {
         Table people = new Table("people");

@@ -8,7 +8,7 @@ import static com.truemesh.squiggle.tests.support.SqlMatcher.generatesSql;
 import org.junit.Test;
 import static org.junit.Assert.assertThat;
 
-public class Test005Join {
+public class Example005Join {
     @Test
     public void joinOnForeignKeyRelationship() {
         Table people = new Table("people");

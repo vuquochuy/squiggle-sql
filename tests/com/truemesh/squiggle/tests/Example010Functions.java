@@ -13,7 +13,7 @@ import com.truemesh.squiggle.criteria.BetweenCriteria;
 import com.truemesh.squiggle.literal.IntegerLiteral;
 import com.truemesh.squiggle.literal.StringLiteral;
 
-public class Test010Functions {
+public class Example010Functions {
     @Test
     public void functions() {
     	SelectQuery select = new SelectQuery();

@@ -9,7 +9,7 @@ import static com.truemesh.squiggle.tests.support.SqlMatcher.generatesSql;
 import org.junit.Test;
 import static org.junit.Assert.assertThat;
 
-public class Test008Tutorial {
+public class Example008Tutorial {
     @Test
     public void tutorial() {
         // basic query
