@@ -9,7 +9,7 @@ import com.truemesh.squiggle.Order;
 import com.truemesh.squiggle.SelectQuery;
 import com.truemesh.squiggle.Table;
 
-public class Test001SimplestSelect {
+public class Example001SimplestSelect {
     @Test
     public void simpleSelect() {
         Table people = new Table("people");

@@ -5,7 +5,7 @@ import static com.truemesh.squiggle.tests.support.SqlMatcher.generatesSql;
 import org.junit.Test;
 import static org.junit.Assert.assertThat;
 
-public class Test004SelectWildcardColumn {
+public class Example004SelectWildcardColumn {
     @Test
     public void selectWildcardColumn() {
         Table people = new Table("people");

@@ -8,7 +8,7 @@ import static com.truemesh.squiggle.tests.support.SqlMatcher.generatesSql;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
-public class Test007SubSelect {
+public class Example007SubSelect {
     @Test
     public void testSubSelect() {
         Table people = new Table("people");

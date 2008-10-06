@@ -5,7 +5,7 @@ import static com.truemesh.squiggle.tests.support.SqlMatcher.generatesSql;
 import org.junit.Test;
 import static org.junit.Assert.assertThat;
 
-public class Test006TableAliases {
+public class Example006TableAliases {
     @Test
     public void tableAliases() {
         Table employees = new Table("people", "employees");
