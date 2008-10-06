@@ -36,10 +36,10 @@ function publish_file() {
 }
 
 function publish_release() {
-    publish_file squiggle-sql-$VERSION.jar "Library only"
-    publish_file squiggle-sql-$VERSION-src.zip "Source archive for IDEs"
-    publish_file squiggle-sql-$VERSION.zip "Full distribution in ZIP format"
-    publish_file squiggle-sql-$VERSION.tgz "Full distribution in TGZ format"
+    publish_file build/squiggle-sql-$VERSION.jar "Library only"
+    publish_file build/squiggle-sql-$VERSION-src.zip "Source archive for IDEs"
+    publish_file build/squiggle-sql-$VERSION.zip "Full distribution in ZIP format"
+    publish_file build/squiggle-sql-$VERSION.tgz "Full distribution in TGZ format"
 }
 
 echo "Publishing release of Squiggle SQL $VERSION"
