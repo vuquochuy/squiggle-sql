@@ -66,4 +66,26 @@ public class Test002WhereCriteria {
                 "    people.name IS NULL AND " +
                 "    people.age IS NOT NULL"));
     }
+
+    @Test
+    public void betweenCriteriaWithColumns() {
+        Table rivers = new Table("rivers");
+
+        SelectQuery select = new SelectQuery();
+
+        select.addColumn(rivers, "name");
+        select.addColumn(rivers, "level");
+
+        select.addCriteria(
+                new BetweenCriteria(rivers.getColumn("level"), rivers.getColumn("lower_limit"), rivers.getColumn("upper_limit")));
+
+        assertThat(select, SqlMatcher.generatesSql(
+                "SELECT " +
+                "    rivers.name , " +
+                "    rivers.level " +
+                "FROM " +
+                "    rivers " +
+                "WHERE " +
+                "    rivers.level BETWEEN rivers.lower_limit AND rivers.upper_limit"));
+    }
 }
