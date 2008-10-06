@@ -13,10 +13,10 @@ public class Test008Tutorial {
     @Test
     public void tutorial() {
         // basic query
-        Table orders = new Table("orders_table");
-        SelectQuery select = new SelectQuery();
+    	SelectQuery select = new SelectQuery();
 
         // add columns
+    	Table orders = new Table("orders_table");
         select.addColumn(orders, "id");
         select.addColumn(orders, "total_price");
 
@@ -37,8 +37,8 @@ public class Test008Tutorial {
         select.addCriteria(new MatchCriteria(warehouses, "size", MatchCriteria.EQUALS, "big"));
 
         // build subselect query
-        Table offers = new Table("offers_table");
         SelectQuery subSelect = new SelectQuery();
+        Table offers = new Table("offers_table");
         subSelect.addColumn(offers, "location");
         subSelect.addCriteria(new MatchCriteria(offers, "valid", MatchCriteria.EQUALS, true));
 
