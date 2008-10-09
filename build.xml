@@ -12,11 +12,11 @@
         <javac srcdir="src" destdir="build/squiggle"/>
     </target>
 
-    <target name="compile-tests" depends="jar" description="Compile tests">
+    <target name="compile-tests" depends="compile" description="Compile tests">
         <mkdir dir="build/tests"/>
         <javac srcdir="tests" destdir="build/tests">
         	<classpath>
-        		<pathelement location="build/squiggle-${version}.jar"/>
+        		<pathelement location="build/squiggle"/>
         		<fileset dir="lib/build"/>
         	</classpath>
         </javac> 
@@ -25,7 +25,7 @@
 	<target name="test" depends="compile-tests" description="Runs the tests">
 		<junit fork="yes" forkmode="once" printsummary="no" showoutput="yes">
 			<classpath>
-        		<pathelement location="build/squiggle-${version}.jar"/>
+        		<pathelement location="build/squiggle"/>
         		<pathelement location="build/tests"/>
 				<fileset dir="lib/build"/>
 			</classpath>
