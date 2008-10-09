@@ -7,7 +7,7 @@ export TAG=$VERSION
 
 REPOSITORY=`svn info | grep 'Repository Root:' | cut -c 18-`
 WORKING_DIR=build/release
-EXPORT_SUBDIR=squiggle-sql-$VERSION
+EXPORT_SUBDIR=squiggle-$VERSION
 
 function export_release() {
     svn export $REPOSITORY/tags/$VERSION $EXPORT_SUBDIR
@@ -36,10 +36,11 @@ function publish_file() {
 }
 
 function publish_release() {
-    publish_file build/squiggle-sql-$VERSION.jar "Library only"
-    publish_file build/squiggle-sql-$VERSION-src.zip "Source archive for IDEs"
-    publish_file build/squiggle-sql-$VERSION.zip "Full distribution in ZIP format"
-    publish_file build/squiggle-sql-$VERSION.tgz "Full distribution in TGZ format"
+    echo "in $(pwd)"
+    publish_file build/squiggle-$VERSION.jar "Library only"
+    publish_file build/squiggle-$VERSION-src.zip "Source archive for IDEs"
+    publish_file build/squiggle-$VERSION.zip "Full distribution in ZIP format"
+    publish_file build/squiggle-$VERSION.tgz "Full distribution in TGZ format"
 }
 
 echo "Publishing release of Squiggle SQL $VERSION"

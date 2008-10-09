@@ -12,11 +12,11 @@
         <javac srcdir="src" destdir="build/squiggle"/>
     </target>
 
-    <target name="compile-tests" depends="compile" description="Compile tests">
+    <target name="compile-tests" depends="jar" description="Compile tests">
         <mkdir dir="build/tests"/>
         <javac srcdir="tests" destdir="build/tests">
         	<classpath>
-        		<pathelement location="build/squiggle"/>
+        		<pathelement location="build/squiggle-${version}.jar"/>
         		<fileset dir="lib/build"/>
         	</classpath>
         </javac> 
