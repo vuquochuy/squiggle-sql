@@ -1,6 +1,6 @@
 <project name="squiggle" default="all">
 
-    <property name="version" value="1.4.0-snapshot"/>
+    <property name="version" value="1.4.0-dev"/>
 
     <target name="all" depends="clean, compile-examples, dist" description="Build everything"/>
 
