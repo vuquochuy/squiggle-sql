@@ -1,18 +1,19 @@
 package com.truemesh.squiggle;
 
-import com.truemesh.squiggle.output.Output;
 import com.truemesh.squiggle.output.Outputable;
+import com.truemesh.squiggle.output.Output;
+import com.truemesh.squiggle.output.ToStringer;
 
 /**
  * @author <a href="joe@truemesh.com">Joe Walnes</a>
- * @author Nat Pryce
  */
 public class Table implements Outputable {
-    private final String name;
-    private final String alias;
+
+    private String name;
+    private String alias;
 
     public Table(String name) {
-        this(name, null);
+        this.name = name;
     }
 
     public Table(String name, String alias) {
@@ -38,9 +39,9 @@ public class Table implements Outputable {
      * Short alias of table
      */
     public String getAlias() {
-        return alias != null ? alias : name;
+        return hasAlias() ? alias : name;
     }
-    
+
     /**
      * Get a column for a particular table.
      */
@@ -48,32 +49,21 @@ public class Table implements Outputable {
         return new Column(this, columnName);
     }
 
-    public WildCardColumn getWildcard() {
-        return new WildCardColumn(this);
+    public boolean equals(Object o) {
+        if (o == null) return false;
+        if (!(o instanceof Table)) return false;
+        return getAlias().equals(((Table) o).getAlias());
     }
 
-    public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (o == null)
-			return false;
-		if (getClass() != o.getClass())
-			return false;
-		
-        Table that = (Table)o;
-        
-		return getAlias().equals(that.getAlias());
-    }
-    
-    public int hashCode() {
-    	return getAlias().hashCode();
-    }
-    
     public void write(Output out) {
         out.print(getName());
         if (hasAlias()) {
             out.print(' ');
             out.print(getAlias());
         }
+    }
+
+    public String toString() {
+        return ToStringer.toString(this);
     }
 }
