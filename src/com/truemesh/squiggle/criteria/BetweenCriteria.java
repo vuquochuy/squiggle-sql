@@ -11,6 +11,7 @@ import com.truemesh.squiggle.literal.BigDecimalLiteral;
 import com.truemesh.squiggle.literal.DateTimeLiteral;
 import com.truemesh.squiggle.literal.FloatLiteral;
 import com.truemesh.squiggle.literal.IntegerLiteral;
+import com.truemesh.squiggle.literal.StringLiteral;
 import com.truemesh.squiggle.output.Output;
 
 /**
@@ -58,6 +59,10 @@ public class BetweenCriteria extends Criteria {
 
 	public BetweenCriteria(Matchable column, long lower, long upper) {
         this(column, new IntegerLiteral(lower), new IntegerLiteral(upper));
+	}
+
+	public BetweenCriteria(Matchable column, String lower, String upper) {
+        this(column, new StringLiteral(lower), new StringLiteral(upper));
 	}
 
 	public void write(Output out) {
