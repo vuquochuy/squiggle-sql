@@ -10,6 +10,7 @@
         <delete file="squiggle-${version}.jar"/>
         <delete file="squiggle-${version}.zip"/>
         <delete file="squiggle-${version}.tgz"/>
+        <delete file="squiggle-${version}-src.zip"/>
     </target>
 
     <target name="compile" description="Compile Squiggle">
