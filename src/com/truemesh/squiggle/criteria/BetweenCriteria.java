@@ -48,8 +48,8 @@ public class BetweenCriteria extends Criteria {
         this(operand, new BigDecimalLiteral(lower), new BigDecimalLiteral(upper));
 	}
 
-	public BetweenCriteria(Matchable column, Date upper, Date lower) {
-        this(column, new DateTimeLiteral(upper), new DateTimeLiteral(lower));
+	public BetweenCriteria(Matchable column, Date lower, Date upper) {
+        this(column, new DateTimeLiteral(lower), new DateTimeLiteral(upper));
 	}
 
 	public BetweenCriteria(Matchable column, double lower, double upper) {
