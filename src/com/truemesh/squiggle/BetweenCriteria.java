@@ -125,6 +125,25 @@ public class BetweenCriteria extends Criteria {
   }
 
   /**
+   * Initializes a new BetweenCriteria with a Varchar column and a String range
+   * which serves as the bounds for the SQL BETWEEN operator within which the
+   * operator tests whether the column lies.
+   * 
+   * @param column
+   *            the first operand to the SQL BETWEEN operator that the operator
+   *            uses to test whether the column falls within the given range.
+   *            The SQL type of the column must be VARCHAR.
+   * 
+   * @param range
+   *            the String bounds for the SQL BETWEEN operator within which the
+   *            operator tests whether the column lies.
+   */
+  public BetweenCriteria(Column column, StringRange range) {
+    this.column = column;
+    this.range = range;
+  }
+
+  /**
    * Writes a BetweenCriteria as an SQL BETWEEN operator to the given output
    * destination.
    * 
