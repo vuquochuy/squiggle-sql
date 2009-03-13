@@ -1,0 +1,60 @@
+<project name="squiggle" default="all">
+
+    <property name="version" value="1.4.0"/>
+
+    <target name="all" depends="clean, compile-examples, dist" description="Build everything"/>
+
+    <target name="clean" description="Clean up built files">
+        <delete dir="build"/>
+        <delete dir="docs/api"/>
+        <delete file="squiggle-${version}.jar"/>
+        <delete file="squiggle-${version}.zip"/>
+        <delete file="squiggle-${version}.tgz"/>
+        <delete file="squiggle-${version}-src.zip"/>
+    </target>
+
+    <target name="compile" description="Compile Squiggle">
+        <mkdir dir="build/squiggle"/>
+        <javac srcdir="src" destdir="build/squiggle"/>
+    </target>
+
+    <target name="compile-examples" depends="compile" description="Compile examples">
+        <mkdir dir="build/examples"/>
+        <javac srcdir="src" destdir="build/examples" classpath="build/squiggle"/>
+    </target>
+
+    <target name="dist" depends="jar, javadoc, src-zip" description="Build distribution bundles">
+        <mkdir dir="build/dist"/>
+        <copy todir="build/dist">
+            <fileset dir=".">
+                <include name="docs/**"/>
+                <include name="examples/**"/>
+                <include name="src/**"/>
+                <include name="build.xml"/>
+                <include name="CHANGES.txt"/>
+                <include name="LICENSE.txt"/>
+                <include name="squiggle-${version}.jar"/>
+                <include name="squiggle-${version}-src.zip"/>
+            </fileset>
+        </copy>
+        <zip zipfile="squiggle-${version}.zip" basedir="build/dist"/>
+        <tar tarfile="squiggle-${version}.tgz" basedir="build/dist" compression="gzip"/>
+    </target>
+
+    <target name="jar" depends="compile" description="Build JAR for library">
+        <jar jarfile="squiggle-${version}.jar">
+            <fileset dir="build/squiggle"/>
+        </jar>
+    </target>
+
+    <target name="src-zip" description="Build JAR of sources for IDEs">
+        <zip zipfile="squiggle-${version}-src.zip">
+            <fileset dir="src"/>
+        </zip>
+    </target>
+    
+    <target name="javadoc" description="Generate Javadoc documentation">
+        <javadoc sourcepath="src" destdir="docs/api"/>
+    </target>
+
+</project>
