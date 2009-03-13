@@ -1,19 +1,14 @@
 package com.truemesh.squiggle;
 
-import com.truemesh.squiggle.output.Output;
-
 /**
  * Special column to represent For SELECT * FROM ...
  * 
  * @author <a href="joe@truemesh.com">Joe Walnes</a>
- * @author Nat Pryce
  */
-public class WildCardColumn extends Projection {
+public class WildCardColumn extends Column {
+
     public WildCardColumn(Table table) {
-        super(table);
+        super(table, "*");
     }
 
-	public void write(Output out) {
-        out.print(getTable().getAlias()).print(".*");
-	}
 }

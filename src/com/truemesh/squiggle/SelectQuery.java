@@ -1,57 +1,53 @@
 package com.truemesh.squiggle;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-
-import com.truemesh.squiggle.criteria.MatchCriteria;
 import com.truemesh.squiggle.output.Output;
 import com.truemesh.squiggle.output.Outputable;
 import com.truemesh.squiggle.output.ToStringer;
 
+import java.util.*;
+
 /**
  * @author <a href="joe@truemesh.com">Joe Walnes</a>
- * @author Nat Pryce
  */
-public class SelectQuery implements Outputable, ValueSet {
+public class SelectQuery implements Outputable {
+
     public static final int indentSize = 4;
-    
-    private final List<Selectable> selection = new ArrayList<Selectable>();
-    private final List<Criteria> criteria = new ArrayList<Criteria>();
-    private final List<Order> order = new ArrayList<Order>();
 
+    private Table baseTable;
+    private List columns;
     private boolean isDistinct = false;
+    private List criteria;
+    private List order;
 
-    public List<Table> listTables() {
-    	LinkedHashSet<Table> tables = new LinkedHashSet<Table>();
-    	addReferencedTablesTo(tables);
-    	return new ArrayList<Table>(tables);
+    public SelectQuery(Table baseTable) {
+        this.baseTable = baseTable;
+        columns = new ArrayList();
+        criteria = new ArrayList();
+        order = new ArrayList();
     }
 
-    public void addToSelection(Selectable selectable) {
-        selection.add(selectable);
+    public Table getBaseTable() {
+        return baseTable;
+    }
+
+    public void addColumn(Column column) {
+        columns.add(column);
     }
 
     /**
-     * Syntax sugar for addToSelection(Column).
+     * Syntax sugar for addColumn(Column).
      */
     public void addColumn(Table table, String columname) {
-        addToSelection(table.getColumn(columname));
+        addColumn(table.getColumn(columname));
     }
 
-    public void removeFromSelection(Selectable selectable) {
-        selection.remove(selectable);
+
+    public void removeColumn(Column column) {
+        columns.remove(column);
     }
 
-    /**
-     * @return a list of {@link Selectable} objects.
-     */
-    public List<Selectable> listSelection() {
-        return Collections.unmodifiableList(selection);
+    public List listColumns() {
+        return Collections.unmodifiableList(columns);
     }
 
     public boolean isDistinct() {
@@ -70,7 +66,7 @@ public class SelectQuery implements Outputable, ValueSet {
         this.criteria.remove(criteria);
     }
 
-    public List<Criteria> listCriteria() {
+    public List listCriteria() {
         return Collections.unmodifiableList(criteria);
     }
 
@@ -78,14 +74,7 @@ public class SelectQuery implements Outputable, ValueSet {
      * Syntax sugar for addCriteria(JoinCriteria)
      */
     public void addJoin(Table srcTable, String srcColumnname, Table destTable, String destColumnname) {
-        addCriteria(new MatchCriteria(srcTable.getColumn(srcColumnname), MatchCriteria.EQUALS, destTable.getColumn(destColumnname)));
-    }
-
-    /**
-     * Syntax sugar for addCriteria(JoinCriteria)
-     */
-    public void addJoin(Table srcTable, String srcColumnName, String operator, Table destTable, String destColumnName) {
-        addCriteria(new MatchCriteria(srcTable.getColumn(srcColumnName), operator, destTable.getColumn(destColumnName)));
+        addCriteria(new JoinCriteria(srcTable.getColumn(srcColumnname), destTable.getColumn(destColumnname)));
     }
 
     public void addOrder(Order order) {
@@ -103,7 +92,7 @@ public class SelectQuery implements Outputable, ValueSet {
         this.order.remove(order);
     }
 
-    public List<Order> listOrder() {
+    public List listOrder() {
         return Collections.unmodifiableList(order);
     }
 
@@ -112,45 +101,48 @@ public class SelectQuery implements Outputable, ValueSet {
     }
 
     public void write(Output out) {
-        out.print("SELECT");
+
+        out.println("SELECT");
         if (isDistinct) {
-            out.print(" DISTINCT");
-        }
-        out.println();
-
-        appendIndentedList(out, selection, ",");
-
-        Set<Table> tables = findAllUsedTables();
-        if (!tables.isEmpty()) {
-	        out.println("FROM");
-			appendIndentedList(out, tables, ",");
+            out.println(" DISTINCT");
         }
         
+        // Add columns to select
+        out.indent();
+        appendList(out, columns, ",");
+        out.unindent();
+
+        // Add tables to select from
+        out.println("FROM");
+
+        // Determine all tables used in query
+        out.indent();
+        appendList(out, findAllUsedTables(), ",");
+        out.unindent();
+
         // Add criteria
         if (criteria.size() > 0) {
             out.println("WHERE");
-            appendIndentedList(out, criteria, "AND");
+            out.indent();
+            appendList(out, criteria, "AND");
+            out.unindent();
         }
 
         // Add order
         if (order.size() > 0) {
             out.println("ORDER BY");
-            appendIndentedList(out, order, ",");
+            out.indent();
+            appendList(out, order, ",");
+            out.unindent();
         }
-    }
-
-    private void appendIndentedList(Output out, Collection<? extends Outputable> things, String seperator) {
-        out.indent();
-        appendList(out, things, seperator);
-        out.unindent();
     }
 
     /**
      * Iterate through a Collection and append all entries (using .toString()) to
      * a StringBuffer.
      */
-    private void appendList(Output out, Collection<? extends Outputable> collection, String seperator) {
-        Iterator<? extends Outputable> i = collection.iterator();
+    private void appendList(Output out, Collection collection, String seperator) {
+        Iterator i = collection.iterator();
         boolean hasNext = i.hasNext();
 
         while (hasNext) {
@@ -164,27 +156,55 @@ public class SelectQuery implements Outputable, ValueSet {
             out.println();
         }
     }
-    
+
     /**
      * Find all the tables used in the query (from columns, criteria and order).
-     *
-     * @return Set of {@link com.truemesh.squiggle.Table}s
+     * 
+     * @return List of {@link com.truemesh.squiggle.Table}s
      */
-    private Set<Table> findAllUsedTables() {
-        Set<Table> tables = new LinkedHashSet<Table>();
-        addReferencedTablesTo(tables);
-        return tables;
+    private List findAllUsedTables() {
+
+        List allTables = new ArrayList();
+        allTables.add(baseTable);
+
+        { // Get all tables used by columns
+            Iterator i = columns.iterator();
+            while (i.hasNext()) {
+                Table curr = ((Column) i.next()).getTable();
+                if (!allTables.contains(curr)) {
+                    allTables.add(curr);
+                }
+            }
+        }
+
+        { // Get all tables used by criteria
+            Iterator i = criteria.iterator();
+            while (i.hasNext()) {
+                try {
+                    JoinCriteria curr = (JoinCriteria) i.next();
+                    if (!allTables.contains(curr.getSource().getTable())) {
+                        allTables.add(curr.getSource().getTable());
+                    }
+                    if (!allTables.contains(curr.getDest().getTable())) {
+                        allTables.add(curr.getDest().getTable());
+                    }
+                } catch (ClassCastException e) {
+                } // not a JoinCriteria
+            }
+        }
+
+        { // Get all tables used by columns
+            Iterator i = order.iterator();
+            while (i.hasNext()) {
+                Order curr = (Order) i.next();
+                Table c = curr.getColumn().getTable();
+                if (!allTables.contains(c)) {
+                    allTables.add(c);
+                }
+            }
+        }
+
+        return allTables;
     }
 
-    public void addReferencedTablesTo(Set<Table> tables) {
-        for (Selectable s : selection) {
-            s.addReferencedTablesTo(tables);
-        }
-        for (Criteria c : criteria) {
-            c.addReferencedTablesTo(tables);
-        }
-        for (Order o : order) {
-            o.addReferencedTablesTo(tables);
-        }
-    }
 }
