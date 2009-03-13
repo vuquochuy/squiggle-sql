@@ -1,46 +1,36 @@
 package com.truemesh.squiggle;
 
-
+import com.truemesh.squiggle.output.Outputable;
 import com.truemesh.squiggle.output.Output;
+import com.truemesh.squiggle.output.ToStringer;
 
 /**
  * @author <a href="joe@truemesh.com">Joe Walnes</a>
- * @author Nat Pryce
  */
-public class Column extends Projection implements Matchable {
-	private final String name;
-	
+public class Column implements Outputable {
+
+    private String name;
+    private Table table;
+
     public Column(Table table, String name) {
-        super(table);
+        this.table = table;
         this.name = name;
+    }
+
+    public Table getTable() {
+        return table;
     }
 
     public String getName() {
         return name;
     }
 
+    public String toString() {
+        return ToStringer.toString(this);
+    }
+
     public void write(Output out) {
         out.print(getTable().getAlias()).print('.').print(getName());
     }
 
-	public int hashCode() {
-		final int prime = 31;
-		int result = getTable().hashCode();
-		result = prime * result + name.hashCode();
-		return result;
-	}
-	
-	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (o == null)
-			return false;
-		if (getClass() != o.getClass())
-			return false;
-		
-		final Column that = (Column)o;
-		
-		return this.name.equals(that.name) 
-		    && this.getTable().equals(that.getTable()); 
-	}
 }
